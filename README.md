@@ -1,2 +1,6 @@
 # martrin
-Okan'ı eşşekler kovalasın !!!
+## Marketing Vitrine
+
+```bash
+echo "Okan'ı eşşekler de kovalamasın !!!"
+```
