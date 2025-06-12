@@ -18,17 +18,17 @@ graph TD;
 ```
 
 ## Phase-1: Monolith Starter
- - Persistence: MySQL
- - Backend: Spring-Boot Application
- - WebUI: node.js-served Angular
+ - Persistence: PostgreSQL
+ - Backend: .Net Core
+ - WebUI: JQuery Ajax
  
 
 ```mermaid
 graph TD;
     Z[End-User];
-    A[WebUI:Angular];
-    B[Backend:Spring-Boot#Monolith];
-    C[MySQL];
+    A[WebUI:Jquery];
+    B[Backend:.Net Core#Microservice];
+    C[PostgreSQL];
 
     1[AuthenticationService];
     2[UserService];
