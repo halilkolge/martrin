@@ -77,8 +77,11 @@ graph TD;
     - Bar --> 
     Anasayfa  
     Kategori  --> Infulencer (Gıda, Giyim, ) Bilbord Avm Sinema Araç giydirma Televizyon
+    Hizmetler
     Hakkımızda
     İletişim
+    
+    Seracch button
     Giriş Yap
     Kayıt ol
 
@@ -86,10 +89,30 @@ graph TD;
     Video -- Şirketin tanıtımı  -- Müşteri ağzından tanıtım
     Reklam vermenin avantajları ile ilgili metin bilgileri
     Turbo reklam ile 6 card ile reklam altında tümünü gör 
-
+    Sıkca sorulan sorular
     Müşteri yorumları 
-
     Referasnlarımız
+    foodbar
     
 ## Infulencer Page
+    -BAR
+    Ekranın solunda detaylı kategori 
+        Reklam türü (Gıda, Giyim, )
+        Reklam tipi (Reels, ürün yerleştirme, ürün tanıtım, post, ) 
+        Platform Seçimi ( Instagram, X, Tiktok, facebook, youtube, blog) 
+        Yıldız
+        Fotoğraf - Video
+        Takipci sayısı
+        Fiyat aralığı
+        Tarih aralığı
+        Ara Butonu
+    Ortada Vitrin
+        Her sırada 4 card olacak şekilde gird olarak listeleme olacak 
+        Her sayfada 20 card oalcak 
+        Card Detayı
+            Foto - İsim - Fiyat - Kendini tanıt yazısı - Yıldız
+    foodbar
+            
+
+## Infulencer Detay Page
     
