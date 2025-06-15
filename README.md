@@ -116,7 +116,7 @@ graph TD;
             
 
 ## Infulencer Detay Page
-- Bar
+    - Bar
     Sola yakın büyük fotoğraf kaydırınca profillerinin fotoğrafları
     Sağ tarafda 
         -- İsim
