@@ -75,6 +75,7 @@ graph TD;
 # Pages
 ## Home Page
     - Bar --> 
+    LOGO
     Anasayfa  
     Kategori  --> Infulencer (Gıda, Giyim, ) Bilbord Avm Sinema Araç giydirma Televizyon
     Hizmetler
@@ -95,7 +96,7 @@ graph TD;
     foodbar
     
 ## Infulencer Page
-    -BAR
+    - BAR
     Ekranın solunda detaylı kategori 
         Reklam türü (Gıda, Giyim, )
         Paylaşım tipi (Reels, ürün yerleştirme, ürün tanıtım, post, story) 
@@ -115,11 +116,19 @@ graph TD;
             
 
 ## Infulencer Detay Page
--Bar
-    Sola yakın büyük fotoğraf 
+- Bar
+    Sola yakın büyük fotoğraf kaydırınca profillerinin fotoğrafları
     Sağ tarafda 
         -- İsim
-        -- Reklam türü
+        -- Reklam türü (Gıda, Giyim, )
+        -- Takipci sayısı
         -- Kendini tanıt yazısı 
-        
+        -- Fiyat
+    Tablar olacak
+        -- Değerlendirmeler
+        -- Sorular
+  İlginizi çekebilecek ilanlar
+  
+  - foodbar
+    
     
