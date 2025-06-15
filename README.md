@@ -74,3 +74,22 @@ graph TD;
 
 # Pages
 ## Home Page
+    - Bar --> 
+    Anasayfa  
+    Kategori  --> Infulencer (Gıda, Giyim, ) Bilbord Avm Sinema Araç giydirma Televizyon
+    Hakkımızda
+    İletişim
+    Giriş Yap
+    Kayıt ol
+
+    slider olacak (her sayfada bilbord avm infulencer gibi seçenekler gösterilecek)
+    Video -- Şirketin tanıtımı  -- Müşteri ağzından tanıtım
+    Reklam vermenin avantajları ile ilgili metin bilgileri
+    Turbo reklam ile 6 card ile reklam altında tümünü gör 
+
+    Müşteri yorumları 
+
+    Referasnlarımız
+    
+## Infulencer Page
+    
