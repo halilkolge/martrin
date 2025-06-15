@@ -98,7 +98,7 @@ graph TD;
     -BAR
     Ekranın solunda detaylı kategori 
         Reklam türü (Gıda, Giyim, )
-        Reklam tipi (Reels, ürün yerleştirme, ürün tanıtım, post, ) 
+        Paylaşım tipi (Reels, ürün yerleştirme, ürün tanıtım, post, story) 
         Platform Seçimi ( Instagram, X, Tiktok, facebook, youtube, blog) 
         Yıldız
         Fotoğraf - Video
@@ -115,4 +115,11 @@ graph TD;
             
 
 ## Infulencer Detay Page
+-Bar
+    Sola yakın büyük fotoğraf 
+    Sağ tarafda 
+        -- İsim
+        -- Reklam türü
+        -- Kendini tanıt yazısı 
+        
     
