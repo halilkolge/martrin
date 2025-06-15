@@ -127,8 +127,8 @@ graph TD;
     Tablar olacak
         -- Değerlendirmeler
         -- Sorular
-  İlginizi çekebilecek ilanlar
+      İlginizi çekebilecek ilanlar
   
-  - foodbar
+      - foodbar
     
     
