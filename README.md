@@ -261,7 +261,7 @@ nvm install
 nvm use
 ```
 
-pnpm kurulu değilse: `npm install -g pnpm`.
+pnpm kurulu değilse: `corepack enable`. Corepack, `package.json` dosyasındaki `packageManager` alanında yazan pnpm sürümünü etkinleştirir.
 
 Repoyu klonlayıp bağımlılıkları kurun:
 
