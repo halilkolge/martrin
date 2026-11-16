@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html{color-scheme:light}
+body{background:#d5dadc;color:#151515}
+.wide{letter-spacing:-.02em}
+.xwide{letter-spacing:-.035em}
+.tnum{font-variant-numeric:tabular-nums}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid #a77bff;outline-offset:2px}
+.blob-1{border-radius:62% 38% 46% 54% / 45% 55% 45% 55%}
+.blob-2{border-radius:40% 60% 60% 40% / 60% 40% 60% 40%}
+.blob-3{border-radius:55% 45% 35% 65% / 40% 60% 40% 60%}
+.pill-word{display:inline-block;border:2px solid currentColor;border-radius:999px;padding:0 .32em;line-height:1.08}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.floaty{animation:floaty 5s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}

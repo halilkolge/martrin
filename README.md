@@ -21,6 +21,9 @@ Benzer ürünler yalnızca influencer tarafını çözüyor. **Martrin'in farkı
 | Faz 2 kilometre taşı | https://github.com/halilkolge/martrin/milestone/2 |
 | İlk plan notları (eski README) | [docs/ilk-plan.md](docs/ilk-plan.md) |
 | Backlog verisi | [docs/backlog.json](docs/backlog.json) |
+| Kodlama ajanı kuralları | [AGENTS.md](AGENTS.md) |
+| Ajan görev şablonu | [docs/agent-task-template.md](docs/agent-task-template.md) |
+| Prototip kaynağı ve logo | [design/](design/) |
 
 ## Roller
 
@@ -66,7 +69,7 @@ Kararların tamamı ve şıkları karar defterinde. Özet (4 Kasım 2026):
 | D5 | Hukuk / müşavir | Henüz yok. Danışman kontrol listesi hazırlanacak. |
 | E1 | İlk sürüm kanalı | Web + PWA. Mağaza uygulamaları ikinci fazda. |
 | E2 | Hazır script mi, sıfırdan mı | Hibrit: scriptler ilham, çekirdek sıfırdan. |
-| E3 | Teknoloji | Next.js + TypeScript + PostgreSQL (PostGIS). **Not:** [ilk plan notları](docs/ilk-plan.md) .NET Core + jQuery öneriyor; son karar [E0.1](https://github.com/halilkolge/martrin/issues/3) işinde verilecek. |
+| E3 | Teknoloji | Next.js + TypeScript + Tailwind + PostgreSQL (PostGIS) + Drizzle. Kesinleşti: [ADR 0001](docs/adr/0001-teknoloji-yigini.md) (16 Kasım 2026). |
 | Marka | Logo ve slogan | Logo: "Pano-m" (üç ayaklı pano biçiminde m). Slogan: "Göz neredeyse, markan orada." |
 
 ### Açık sorular
@@ -242,6 +245,8 @@ Pilotla canlıya güvenle çıkmak. Toplam 13 puan.
 | [#73](https://github.com/halilkolge/martrin/issues/73) | Pilot ve canlıya alma | MVP | 5 | Pilot planı; Canlı ortam kurulumu; Lansman kontrol listesi |
 
 ## Çalışma şekli
+
+- Kodlama görevlerini opencode ajanları yapar. Kurallar [AGENTS.md](AGENTS.md)'de. Her issue'ya ajan almadan önce "Ajan görevi" bölümü (kapsam, adımlar, EVAL, DoD) eklenir ve PR'lar bu maddelere göre incelenir.
 
 - `main` dalı korunur, doğrudan commit atılmaz. Geliştirme `prototip` ya da iş başına açılan dallarda yapılır ve PR ile birleştirilir.
 - PR açıklamasına `Closes #<issue>` yazılınca ilgili iş birleşmeyle kapanır.
