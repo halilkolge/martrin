@@ -1,0 +1,1023 @@
+[
+ {
+  "code": "E0",
+  "name": "Temel ve altyapı",
+  "goal": "Ekibin aynı zeminde, güvenle geliştirip yayına alabilmesi",
+  "pbis": [
+   {
+    "title": "Teknoloji yığını kararı",
+    "story": "Ekip olarak tek bir yığında anlaşmak istiyoruz, böylece kod iki kez yazılmaz.",
+    "criteria": [
+     "README'deki .NET Core + jQuery planı ile karar defterindeki Next.js + TS kararı karşılaştırıldı",
+     "Karar ve gerekçesi repoda docs/adr/0001 olarak yazıldı"
+    ],
+    "steps": [
+     "İki seçeneğin artı/eksi tablosunu çıkar",
+     "Ekip yetkinliği, hız, SEO, PWA ihtiyacını puanla",
+     "Kararı ADR olarak yaz ve README'yi güncelle"
+    ],
+    "points": 2,
+    "phase": "MVP"
+   },
+   {
+    "title": "Repo iskeleti ve kod standartları",
+    "story": "Geliştirici olarak projeyi tek komutla ayağa kaldırmak istiyorum.",
+    "criteria": [
+     "Klonla, kur, çalıştır adımları README'de",
+     "Lint ve format kuralları otomatik çalışıyor",
+     "main dalı korumalı, PR ve en az 1 onay zorunlu"
+    ],
+    "steps": [
+     "Seçilen yığınla proje iskeletini kur",
+     "Lint, format, commit kurallarını ekle",
+     "Dal koruma ve PR şablonunu ayarla",
+     ".env örnek dosyasını ekle"
+    ],
+    "points": 3,
+    "phase": "MVP"
+   },
+   {
+    "title": "CI/CD hattı",
+    "story": "Ekip olarak her PR'ın otomatik test edilmesini ve onaylanan kodun test ortamına çıkmasını istiyoruz.",
+    "criteria": [
+     "Her PR'da derleme, lint ve testler çalışıyor",
+     "main'e birleşen kod staging'e otomatik çıkıyor"
+    ],
+    "steps": [
+     "GitHub Actions iş akışını yaz",
+     "Staging ortamını kur",
+     "Gizli anahtarları ortam değişkenlerine taşı"
+    ],
+    "points": 3,
+    "phase": "MVP"
+   },
+   {
+    "title": "Veritabanı şeması ve göç altyapısı",
+    "story": "Geliştirici olarak şema değişikliklerini sürümlü yönetmek istiyorum.",
+    "criteria": [
+     "PostgreSQL + PostGIS kurulu",
+     "Kullanıcı, rol, ilan, sipariş, ödeme, kanıt tabloları ilk göçte var",
+     "Örnek (seed) veri prototip içerikleriyle dolu"
+    ],
+    "steps": [
+     "Varlık-ilişki diyagramını çiz",
+     "Göç aracını kur",
+     "İlk göçü yaz",
+     "Prototipteki hayali verilerle seed oluştur"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Tasarım sistemi ve ortak bileşenler",
+    "story": "Ön yüz geliştiricisi olarak prototipteki görünümü tekrar kullanılabilir bileşenlerle kurmak istiyorum.",
+    "criteria": [
+     "Renkler, fontlar (Poppins/DM Sans), köşe yarıçapları token olarak tanımlı",
+     "Buton, kart, form, etiket, modal, tablo bileşenleri hazır",
+     "Logo (Pano-m) ve favicon eklendi"
+    ],
+    "steps": [
+     "Prototipten tasarım token'larını çıkar",
+     "Temel bileşenleri yaz",
+     "Header ve footer'ı kur",
+     "Bileşen önizleme sayfası ekle"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Hata izleme ve loglama",
+    "story": "Ekip olarak canlıdaki hataları kullanıcı bildirmeden görmek istiyoruz.",
+    "criteria": [
+     "Ön ve arka yüz hataları tek panelde",
+     "Kişisel veri loglara yazılmıyor"
+    ],
+    "steps": [
+     "Hata izleme aracını seç ve kur",
+     "Log seviyelerini ve maskelemeyi ayarla"
+    ],
+    "points": 2,
+    "phase": "MVP"
+   }
+  ]
+ },
+ {
+  "code": "E1",
+  "name": "Hesap, kimlik ve ekip",
+  "goal": "Herkesin doğru rolle, güvenle girebilmesi",
+  "pbis": [
+   {
+    "title": "Kayıt ve giriş",
+    "story": "Ziyaretçi olarak e-posta ya da telefonla hesap açıp giriş yapmak istiyorum.",
+    "criteria": [
+     "E-posta + şifre ve telefon + SMS kodu ile kayıt/giriş",
+     "Şifre sıfırlama çalışıyor",
+     "Başarısız girişlerde hız sınırı var"
+    ],
+    "steps": [
+     "Kimlik doğrulama altyapısını kur",
+     "Kayıt, giriş, şifre sıfırlama ekranlarını yap",
+     "SMS sağlayıcısını bağla",
+     "Oturum ve hız sınırını ekle"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Roller ve yetkilendirme",
+    "story": "Sistem olarak her kullanıcının yalnızca rolünün izin verdiği sayfalara erişmesini istiyoruz.",
+    "criteria": [
+     "Reklam veren, influencer, alan sahibi, ajans, admin rolleri var",
+     "Yetkisiz sayfa isteği 403 dönüyor ve menüde görünmüyor"
+    ],
+    "steps": [
+     "Rol ve izin modelini kur",
+     "Sunucu tarafı yetki kontrolünü ekle",
+     "Menüyü role göre süz"
+    ],
+    "points": 3,
+    "phase": "MVP"
+   },
+   {
+    "title": "Alan sahibi başvurusu",
+    "story": "Alan sahibi olarak firmamı adım adım kaydedip ilk alanımı listelemek istiyorum.",
+    "criteria": [
+     "4 adımlı akış: firma, iletişim, belgeler, onay",
+     "Vergi no 10 hane kontrolü",
+     "Başvuru admin onayına düşüyor"
+    ],
+    "steps": [
+     "Prototipteki SellerJoin akışını gerçek forma çevir",
+     "Belge yüklemeyi ekle",
+     "Admin onay kuyruğuna bağla",
+     "Onay/red e-postası gönder"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Influencer başvurusu",
+    "story": "İçerik üreticisi olarak hesaplarımı ve paketlerimi girip satıcı olmak istiyorum.",
+    "criteria": [
+     "5 adımlı akış",
+     "Toplam takipçi 5.000 altındaysa başvuru durur (eşik admin ayarı)",
+     "IBAN TR + 26 karakter kontrolü",
+     "Takipçi beyanı ekran görüntüsüyle"
+    ],
+    "steps": [
+     "Platform hesap satırlarını yap",
+     "Eşik kontrolünü ayardan oku",
+     "Ekran görüntüsü yüklemeyi ekle",
+     "Admin onayına bağla"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Kimlik ve vergi doğrulama (KYC)",
+    "story": "Platform olarak satıcıların gerçek kişi/kurum olduğundan emin olmak istiyoruz.",
+    "criteria": [
+     "TCKN/VKN doğrulaması",
+     "Belge inceleme ekranı adminde",
+     "Doğrulanmış rozet profilde görünüyor"
+    ],
+    "steps": [
+     "Doğrulama yöntemini seç (servis ya da elle)",
+     "Admin inceleme ekranını yap",
+     "Rozeti ekle"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Ekip yönetimi",
+    "story": "Influencer ya da alan sahibi olarak ekibime sınırlı sayfa yetkisiyle giriş verebilmek istiyorum.",
+    "criteria": [
+     "Davet e-postası ile katılım",
+     "Rol başına sayfa yetkisi: Yok / Görür / Düzenler",
+     "Ekibin teklif ve teslimleri sahibin onayına düşebiliyor",
+     "Ekip hareket günlüğü"
+    ],
+    "steps": [
+     "Hesap altı kullanıcı modelini kur",
+     "Davet akışını yap",
+     "Yetki matrisini sunucuda uygula",
+     "Onay akışını ve günlüğü ekle"
+    ],
+    "points": 8,
+    "phase": "MVP"
+   },
+   {
+    "title": "İki adımlı doğrulama",
+    "story": "Kullanıcı olarak hesabımı ek bir kodla korumak istiyorum.",
+    "criteria": [
+     "Uygulama ya da SMS ile 2FA",
+     "Yedek kodlar"
+    ],
+    "steps": [
+     "2FA altyapısını kur",
+     "Ayarlar ekranını yap"
+    ],
+    "points": 3,
+    "phase": "Faz 2"
+   }
+  ]
+ },
+ {
+  "code": "E2",
+  "name": "Influencer vitrini",
+  "goal": "Reklam verenin doğru içerik üreticisini hızla bulması",
+  "pbis": [
+   {
+    "title": "Influencer profili ve paketler",
+    "story": "Influencer olarak profilimi, platformlarımı ve fiyatlı paketlerimi yönetmek istiyorum.",
+    "criteria": [
+     "Profil foto, biyografi, şehir, kategori, cinsiyet, içerik türleri",
+     "Platform başına takipçi ve link",
+     "Paket: başlık, içerik, süre, fiyat"
+    ],
+    "steps": [
+     "Profil düzenleme ekranı",
+     "Platform hesapları bileşeni",
+     "Paket CRUD"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Influencer listeleme ve filtre",
+    "story": "Reklam veren olarak influencer'ları soldaki filtrelerle daraltmak istiyorum.",
+    "criteria": [
+     "Filtreler: cinsiyet, şehir, kategori, içerik türü, platform, takipçi, fiyat, puan",
+     "Sıralama: popüler, takipçi, puan, fiyat",
+     "Sayfa başına 20 kart, URL'de filtre durumu"
+    ],
+    "steps": [
+     "Arama sorgusu ve indeksleri yaz",
+     "Sol filtre panelini kur (prototipteki gibi)",
+     "Sayfalama ve URL senkronu",
+     "Boş sonuç durumu"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Influencer detay sayfası",
+    "story": "Reklam veren olarak bir influencer'ın işlerini, yorumlarını ve paketlerini tek sayfada görmek istiyorum.",
+    "criteria": [
+     "Fotoğraf galerisi",
+     "Paketler ve Teklif al",
+     "Değerlendirmeler ve Sorular sekmeleri",
+     "Benzer influencer önerileri"
+    ],
+    "steps": [
+     "Detay sayfasını kur",
+     "Değerlendirme ve soru modelleri",
+     "Benzer önerisi (aynı kategori+şehir)"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Sosyal medya API doğrulaması",
+    "story": "Platform olarak takipçi sayılarını otomatik doğrulamak istiyoruz.",
+    "criteria": [
+     "Instagram, YouTube, TikTok bağlantısı",
+     "Günlük istatistik güncellemesi"
+    ],
+    "steps": [
+     "Her platform için API başvurusu",
+     "Bağlama akışı",
+     "Zamanlanmış güncelleme"
+    ],
+    "points": 13,
+    "phase": "Faz 2"
+   }
+  ]
+ },
+ {
+  "code": "E3",
+  "name": "Fiziksel alan envanteri",
+  "goal": "Billboard, AVM ve belediye alanlarının takvimle satılabilmesi",
+  "pbis": [
+   {
+    "title": "Alan oluşturma",
+    "story": "Alan sahibi olarak bir reklam alanını konumu ve özellikleriyle listelemek istiyorum.",
+    "criteria": [
+     "Harita pini + il/ilçe/mahalle",
+     "Tip, ölçü, aydınlatma, dijital/statik, yön, fotoğraflar",
+     "Baskı seçeneği: dahil / ayrı ücret / reklam veren getirir",
+     "Tahmini görüntülenme beyanı"
+    ],
+    "steps": [
+     "Alan formu",
+     "PostGIS konum alanı ve harita seçici",
+     "Fotoğraf yükleme",
+     "Admin onayına bağla"
+    ],
+    "points": 8,
+    "phase": "MVP"
+   },
+   {
+    "title": "Fiyat birimleri",
+    "story": "Alan sahibi olarak günlük, haftalık, 15 günlük, aylık, spot ya da etkinlik bazında fiyat vermek istiyorum.",
+    "criteria": [
+     "Alan başına birden çok fiyat birimi",
+     "Dijital ekranda spot süresi ve saatlik gösterim"
+    ],
+    "steps": [
+     "Fiyat modelini kur",
+     "Fiyat düzenleme bileşeni"
+    ],
+    "points": 3,
+    "phase": "MVP"
+   },
+   {
+    "title": "Doluluk takvimi ve opsiyon",
+    "story": "Alan sahibi olarak dolu tarihleri işaretlemek, reklam veren olarak boş tarihleri görüp opsiyon koymak istiyorum.",
+    "criteria": [
+     "Takvimde dolu/boş/opsiyonlu",
+     "Opsiyon süresi dolunca kendiliğinden düşer",
+     "Çakışan rezervasyon engellenir"
+    ],
+    "steps": [
+     "Takvim veri modeli",
+     "Takvim bileşeni",
+     "Opsiyon zamanlayıcısı",
+     "Çakışma kontrolü"
+    ],
+    "points": 8,
+    "phase": "MVP"
+   },
+   {
+    "title": "Toplu envanter yükleme",
+    "story": "Açık hava şirketi olarak yüzlerce alanı Excel ile yüklemek istiyorum.",
+    "criteria": [
+     "Şablon indir, doldur, yükle",
+     "Satır satır hata raporu"
+    ],
+    "steps": [
+     "Excel şablonu",
+     "İçe aktarma ve doğrulama",
+     "Hata raporu ekranı"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Alan arama ve harita",
+    "story": "Reklam veren olarak alanları haritada ve listede filtrelemek istiyorum.",
+    "criteria": [
+     "Filtre: şehir, tip, fiyat, dijital, tarih müsaitliği",
+     "Harita ve liste senkron"
+    ],
+    "steps": [
+     "Coğrafi sorgular",
+     "Harita bileşeni",
+     "Filtre paneli"
+    ],
+    "points": 8,
+    "phase": "MVP"
+   },
+   {
+    "title": "Alan detay sayfası",
+    "story": "Reklam veren olarak bir alanın fotoğraflarını, takvimini ve fiyatını görüp sepete eklemek istiyorum.",
+    "criteria": [
+     "Galeri, özellikler, harita",
+     "Tarih seçip fiyat hesabı",
+     "Sepete ekle"
+    ],
+    "steps": [
+     "Detay sayfası",
+     "Tarih seçici ve fiyat hesabı"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Belediye ve işletici hesapları",
+    "story": "Belediye ya da ihaleyi almış şirket olarak alanlarımızı ilgili modelle yönetmek istiyoruz.",
+    "criteria": [
+     "Model 1: doğrudan belediye hesabı",
+     "Model 2: işletici şirket + belediyeye gözlemci erişimi",
+     "Esnaf indirimi ve kamusal duyuru kotası"
+    ],
+    "steps": [
+     "Kurum hesap tipi",
+     "Gözlemci rolü",
+     "Kota ve indirim kuralları",
+     "Belediye başvuru formu"
+    ],
+    "points": 8,
+    "phase": "Faz 2"
+   }
+  ]
+ },
+ {
+  "code": "E4",
+  "name": "Kampanya, sepet ve teklif",
+  "goal": "Dijital ve fiziksel reklamı tek kampanyada satın alabilmek",
+  "pbis": [
+   {
+    "title": "Tek sepet karma kampanya",
+    "story": "Reklam veren olarak influencer paketleri ile fiziksel alanları aynı sepette toplamak istiyorum.",
+    "criteria": [
+     "Sepette satıcı bazında gruplama",
+     "Ara toplam, KDV, toplam",
+     "Kampanya adı ve tarih"
+    ],
+    "steps": [
+     "Sepet modeli",
+     "Sepet sayfası",
+     "Sipariş oluşturma"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Sipariş durum akışı",
+    "story": "Taraflar olarak siparişin hangi aşamada olduğunu net görmek istiyoruz.",
+    "criteria": [
+     "Durumlar: beklemede, kabul, yayında, kanıt bekleniyor, onaylandı, tamamlandı, iptal, uyuşmazlık",
+     "Her geçiş günlüğe yazılır ve bildirim gider"
+    ],
+    "steps": [
+     "Durum makinesini yaz",
+     "Geçiş kurallarını test et",
+     "Bildirimleri bağla"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Teklif ve karşı teklif",
+    "story": "Reklam veren olarak liste fiyatına karşı teklif vermek, satıcı olarak kabul/ret/karşı teklif yapmak istiyorum.",
+    "criteria": [
+     "Teklif geçmişi",
+     "Süreli teklif",
+     "Kabul edilen teklif sepete düşer"
+    ],
+    "steps": [
+     "Teklif modeli",
+     "Teklif ekranları",
+     "Süre aşımı"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "İlan ve başvuru (brief)",
+    "story": "Reklam veren olarak ihtiyacımı ilan edip başvuru toplamak istiyorum.",
+    "criteria": [
+     "İlan: bütçe, şehir, tarih, tür",
+     "Satıcı başvurusu ve fiyatı",
+     "Başvuruyu kabul → sipariş"
+    ],
+    "steps": [
+     "İlan formu",
+     "Başvuru akışı",
+     "İlanlar sayfası"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Ters ihale",
+    "story": "Reklam veren olarak bütçemi söyleyip satıcıların fiyat kırmasını istiyorum.",
+    "criteria": [
+     "Süreli ihale",
+     "Teklifler sıralı",
+     "Kazanan bildirim alır"
+    ],
+    "steps": [
+     "İhale modeli",
+     "Canlı teklif listesi",
+     "Kapanış işi"
+    ],
+    "points": 8,
+    "phase": "Faz 2"
+   },
+   {
+    "title": "Mesajlaşma",
+    "story": "Taraflar olarak sipariş üzerinden yazışmak istiyoruz.",
+    "criteria": [
+     "Sipariş bazlı sohbet, dosya ekleme",
+     "Telefon/e-posta paylaşımını engelleyen filtre"
+    ],
+    "steps": [
+     "Mesaj modeli",
+     "Sohbet ekranı",
+     "Yasaklı içerik filtresi"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Satış başına komisyon (kod/link)",
+    "story": "Reklam veren olarak influencer'a indirim kodu verip satış başına ödemek istiyorum.",
+    "criteria": [
+     "Kod/link üretme",
+     "Satış bildirimi ve komisyon hesabı"
+    ],
+    "steps": [
+     "Kod modeli",
+     "Takip linki",
+     "Raporlama"
+    ],
+    "points": 8,
+    "phase": "Faz 2"
+   }
+  ]
+ },
+ {
+  "code": "E5",
+  "name": "Ödeme, emanet ve fatura",
+  "goal": "Paranın güvenle tutulup kanıttan sonra satıcıya geçmesi",
+  "pbis": [
+   {
+    "title": "Ödeme sağlayıcı seçimi",
+    "story": "Kurucular olarak pazaryeri ve emanet destekleyen yerli sağlayıcıyı seçmek istiyoruz.",
+    "criteria": [
+     "iyzico, PayTR, Param, Sipay, Craftgate karşılaştırma tablosu",
+     "Komisyon, alt üye işyeri, para tutma süresi, taksit karşılaştırıldı",
+     "Karar yazıldı"
+    ],
+    "steps": [
+     "Sağlayıcıların pazaryeri koşullarını topla",
+     "Teklif iste",
+     "Karar toplantısı"
+    ],
+    "points": 3,
+    "phase": "MVP"
+   },
+   {
+    "title": "Ödeme entegrasyonu",
+    "story": "Reklam veren olarak kartla (taksitli) güvenle ödemek istiyorum.",
+    "criteria": [
+     "3D Secure",
+     "Taksit seçenekleri",
+     "Başarısız ödeme yönetimi"
+    ],
+    "steps": [
+     "Sağlayıcı SDK entegrasyonu",
+     "Ödeme sayfası",
+     "Webhook işleme"
+    ],
+    "points": 8,
+    "phase": "MVP"
+   },
+   {
+    "title": "Emanet ve aşamalı ödeme",
+    "story": "Platform olarak parayı kanıt onaylanana kadar tutmak, uzun kampanyalarda dönem dönem serbest bırakmak istiyoruz.",
+    "criteria": [
+     "Tek seferlik ve aşamalı (milestone) ödeme",
+     "Onaylanınca satıcıya aktarım",
+     "Erken bitirmede başlamamış dönemler iade"
+    ],
+    "steps": [
+     "Emanet bakiye modeli",
+     "Milestone planı",
+     "Serbest bırakma işi",
+     "İade kuralları"
+    ],
+    "points": 8,
+    "phase": "MVP"
+   },
+   {
+    "title": "Satıcı alt üye işyeri ve aktarım",
+    "story": "Satıcı olarak kazancımın IBAN'ıma ya da istisna hesabıma geçmesini istiyorum.",
+    "criteria": [
+     "Alt üye işyeri kaydı",
+     "İçerik üreticisi istisna hesabına ödeme",
+     "Aktarım geçmişi"
+    ],
+    "steps": [
+     "Alt üye kayıt akışı",
+     "IBAN doğrulama",
+     "Aktarım raporu"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Kategori bazlı komisyon",
+    "story": "Admin olarak kategoriye göre komisyon oranı ve paket indirimi tanımlamak istiyorum.",
+    "criteria": [
+     "Influencer %15, billboard %8 gibi oranlar admin ayarı",
+     "Pro/Kurumsal paket indirimi düşülür",
+     "Sipariş anındaki oran saklanır"
+    ],
+    "steps": [
+     "Komisyon ayar ekranı",
+     "Hesap fonksiyonu ve testleri"
+    ],
+    "points": 3,
+    "phase": "MVP"
+   },
+   {
+    "title": "Komisyon faturası",
+    "story": "Platform olarak yalnızca kendi komisyonumuz için e-fatura/e-arşiv kesmek istiyoruz.",
+    "criteria": [
+     "Her tamamlanan siparişte komisyon faturası",
+     "Satıcı kendi faturasını yükleyebilir"
+    ],
+    "steps": [
+     "e-Fatura sağlayıcısını seç",
+     "Fatura oluşturma",
+     "Fatura yükleme alanı"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "İptal ve iade",
+    "story": "Reklam veren olarak satıcı kabul etmeden iptal edip tam iade almak istiyorum.",
+    "criteria": [
+     "Kabul öncesi tam iade",
+     "Sonrası uyuşmazlık sürecine"
+    ],
+    "steps": [
+     "İptal kuralları",
+     "İade çağrısı"
+    ],
+    "points": 3,
+    "phase": "MVP"
+   }
+  ]
+ },
+ {
+  "code": "E6",
+  "name": "Yayın kanıtı ve uyuşmazlık",
+  "goal": "Reklamın gerçekten yayınlandığının kanıtlanması",
+  "pbis": [
+   {
+    "title": "Fiziksel alan kanıtı",
+    "story": "Alan sahibi olarak tarih damgalı, konumlu fotoğraf ve video yüklemek istiyorum.",
+    "criteria": [
+     "Konum alanla eşleşiyor (örn. 150 m)",
+     "Video en az ~15 sn",
+     "Dijital ekranda oynatma kaydı"
+    ],
+    "steps": [
+     "Kanıt yükleme ekranı",
+     "EXIF/konum doğrulama",
+     "Kanıt kontrol listesi"
+    ],
+    "points": 8,
+    "phase": "MVP"
+   },
+   {
+    "title": "Influencer kanıtı",
+    "story": "Influencer olarak paylaşım linki ve ekran görüntüsü, 48 saat sonra da istatistik yüklemek istiyorum.",
+    "criteria": [
+     "Link + ekran görüntüsü",
+     "48 saat sonra istatistik hatırlatması",
+     "#reklam / #işbirliği etiketi kontrolü"
+    ],
+    "steps": [
+     "Kanıt formu",
+     "Hatırlatma işi",
+     "Etiket kontrolü"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Onay ve otomatik onay",
+    "story": "Reklam veren olarak kanıtı onaylamak istiyorum; 72 saatte itiraz etmezsem sistem onaylasın.",
+    "criteria": [
+     "Onayla / itiraz et",
+     "72 saat sonunda otomatik onay ve ödeme serbest"
+    ],
+    "steps": [
+     "Onay ekranı",
+     "Zamanlayıcı"
+    ],
+    "points": 3,
+    "phase": "MVP"
+   },
+   {
+    "title": "İtiraz ve uyuşmazlık",
+    "story": "Taraflar olarak anlaşmazlıkta Martrin'in karar vermesini istiyoruz.",
+    "criteria": [
+     "İtiraz → satıcı yanıtı 48 sa → inceleme 5 iş günü → karar",
+     "Karara kadar para emanette"
+    ],
+    "steps": [
+     "Uyuşmazlık modeli",
+     "Admin karar ekranı",
+     "Kısmi iade"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Saha denetimi siparişi",
+    "story": "Reklam veren olarak ücretli bağımsız saha denetimi istemek istiyorum.",
+    "criteria": [
+     "Denetim ücreti (₺3.500 örnek) ile sipariş",
+     "Denetçi raporu yükler"
+    ],
+    "steps": [
+     "Ek hizmet ürünü",
+     "Denetçi rolü ve rapor"
+    ],
+    "points": 5,
+    "phase": "Faz 2"
+   }
+  ]
+ },
+ {
+  "code": "E7",
+  "name": "Paneller ve bildirimler",
+  "goal": "Her rolün işini tek ekrandan yönetmesi",
+  "pbis": [
+   {
+    "title": "Reklam veren paneli",
+    "story": "Reklam veren olarak kampanyalarımı, bekleyen onayları ve harcamamı görmek istiyorum.",
+    "criteria": [
+     "Aktif/bitmiş kampanyalar",
+     "Onay bekleyen kanıtlar",
+     "Harcama özeti"
+    ],
+    "steps": [
+     "Panel sayfası",
+     "Özet sorguları"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Satıcı paneli",
+    "story": "Satıcı olarak gelen talepleri, takvimi, ilanlarımı ve teslimleri yönetmek istiyorum.",
+    "criteria": [
+     "Gelen talepler (kabul/ret)",
+     "Takvim",
+     "İlanlarım",
+     "Kanıt yükleme kısayolu"
+    ],
+    "steps": [
+     "Panel sayfası",
+     "Talepler listesi",
+     "Takvim görünümü"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Kazanç defteri",
+    "story": "Satıcı olarak Martrin kazancımla dışarıdan kazancımı ve giderlerimi tek yerde izlemek istiyorum.",
+    "criteria": [
+     "Martrin işleri otomatik (komisyon düşülmüş)",
+     "Elle gelir/gider ekleme",
+     "Aylık grafik ve Excel'e aktarma"
+    ],
+    "steps": [
+     "Defter modeli",
+     "Elle kayıt formu",
+     "Grafik ve dışa aktarma"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Bildirimler",
+    "story": "Kullanıcı olarak önemli olaylarda e-posta ve telefon bildirimi almak istiyorum.",
+    "criteria": [
+     "E-posta şablonları",
+     "PWA push",
+     "Bildirim tercihleri"
+    ],
+    "steps": [
+     "E-posta servisi",
+     "Push altyapısı",
+     "Tercihler ekranı"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   }
+  ]
+ },
+ {
+  "code": "E8",
+  "name": "Gelir kalemleri",
+  "goal": "Komisyon dışı gelirlerin satılabilmesi",
+  "pbis": [
+   {
+    "title": "Öne çıkarma",
+    "story": "Satıcı olarak ilanımı haftalık ücretle üst sıralara taşımak istiyorum.",
+    "criteria": [
+     "Haftalık satın alma (₺1.500 örnek)",
+     "Aramada 'Öne çıkan' etiketi",
+     "Süre bitince düşer"
+    ],
+    "steps": [
+     "Ürün ve ödeme",
+     "Sıralama ağırlığı",
+     "Süre işi"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Abonelik paketleri",
+    "story": "Satıcı ve reklam veren olarak aylık/yıllık paket almak istiyorum.",
+    "criteria": [
+     "Satıcı: Başlangıç, Pro, Kurumsal; Reklam veren: Ücretsiz, Marka Pro, Ajans",
+     "Yıllıkta 2 ay indirim",
+     "Paket özellik kısıtları uygulanıyor"
+    ],
+    "steps": [
+     "Abonelik modeli",
+     "Tekrarlayan ödeme",
+     "Özellik bayrakları",
+     "Ücretler sayfası"
+    ],
+    "points": 8,
+    "phase": "Faz 2"
+   },
+   {
+    "title": "Ölçüm raporu",
+    "story": "Reklam veren olarak QR, indirim kodu ve link ile kampanya sonucunu görmek istiyorum.",
+    "criteria": [
+     "QR/kısa link üretme",
+     "Tıklama ve kod kullanımı raporu"
+    ],
+    "steps": [
+     "Kısa link servisi",
+     "Rapor sayfası"
+    ],
+    "points": 8,
+    "phase": "Faz 2"
+   }
+  ]
+ },
+ {
+  "code": "E9",
+  "name": "Yönetim paneli",
+  "goal": "Operasyon ekibinin platformu yönetmesi",
+  "pbis": [
+   {
+    "title": "Onay kuyrukları",
+    "story": "Admin olarak satıcı başvurularını ve ilanları onaylamak/reddetmek istiyorum.",
+    "criteria": [
+     "Başvuru ve ilan kuyrukları",
+     "Red gerekçesi e-postası"
+    ],
+    "steps": [
+     "Kuyruk ekranları",
+     "Durum güncelleme"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Platform ayarları",
+    "story": "Admin olarak komisyon oranlarını, takipçi eşiğini ve süreleri değiştirmek istiyorum.",
+    "criteria": [
+     "Komisyon, eşik (5.000), itiraz süresi (72 sa) ayarlanabilir",
+     "Değişiklik günlüğü"
+    ],
+    "steps": [
+     "Ayar modeli",
+     "Ayar ekranı"
+    ],
+    "points": 3,
+    "phase": "MVP"
+   },
+   {
+    "title": "Finans ve raporlar",
+    "story": "Admin olarak GMV, komisyon, emanetteki tutar ve aktarımları görmek istiyorum.",
+    "criteria": [
+     "Günlük/aylık rapor",
+     "Excel'e aktarma"
+    ],
+    "steps": [
+     "Rapor sorguları",
+     "Rapor ekranı"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   }
+  ]
+ },
+ {
+  "code": "E10",
+  "name": "İçerik, hukuk ve SEO",
+  "goal": "Ziyaretçiye güven veren ve yasal uyumlu bir site",
+  "pbis": [
+   {
+    "title": "Ana sayfa ve bilgi sayfaları",
+    "story": "Ziyaretçi olarak Martrin'i ve nasıl çalıştığını anlamak istiyorum.",
+    "criteria": [
+     "Ana sayfa, Ücretler, İletişim, Belediyeler, Emanet ödeme, Yayın kanıtı",
+     "İletişim formu e-postaya düşüyor"
+    ],
+    "steps": [
+     "Prototip sayfalarını gerçek içerikle kur",
+     "İletişim formu gönderimi"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Hukuki metinler ve danışman kontrol listesi",
+    "story": "Kurucular olarak KVKK, sözleşme ve mevzuat uyumunu sağlamak istiyoruz.",
+    "criteria": [
+     "KVKK aydınlatma, açık rıza, kullanıcı sözleşmesi, mesafeli satış",
+     "Ticaret Bakanlığı influencer reklam kılavuzu uyumu",
+     "Avukat ve mali müşavir kontrol listesi (D5)"
+    ],
+    "steps": [
+     "Kontrol listesini hazırla",
+     "Avukattan metin al",
+     "Sayfalara yerleştir"
+    ],
+    "points": 3,
+    "phase": "MVP"
+   },
+   {
+    "title": "Çerez yönetimi",
+    "story": "Ziyaretçi olarak çerez tercihlerimi seçmek istiyorum.",
+    "criteria": [
+     "Zorunlu çerezler kilitli, diğerleri seçmeli",
+     "Tercih saklanıyor"
+    ],
+    "steps": [
+     "Çerez bandı",
+     "Tercih paneli"
+    ],
+    "points": 2,
+    "phase": "MVP"
+   },
+   {
+    "title": "SEO ve analitik",
+    "story": "Kurucular olarak arama motorlarında görünmek ve ziyaretçi davranışını ölçmek istiyoruz.",
+    "criteria": [
+     "Meta etiketleri, site haritası",
+     "Profil ve alan sayfaları indekslenebilir",
+     "Analitik (KVKK uyumlu)"
+    ],
+    "steps": [
+     "SEO bileşenleri",
+     "Site haritası",
+     "Analitik kurulumu"
+    ],
+    "points": 3,
+    "phase": "MVP"
+   }
+  ]
+ },
+ {
+  "code": "E11",
+  "name": "PWA ve yayına alma",
+  "goal": "Pilotla canlıya güvenle çıkmak",
+  "pbis": [
+   {
+    "title": "PWA",
+    "story": "Kullanıcı olarak siteyi telefonuma uygulama gibi kurmak istiyorum.",
+    "criteria": [
+     "Ana ekrana ekle",
+     "Çevrimdışı temel sayfa",
+     "Push izni"
+    ],
+    "steps": [
+     "Manifest ve ikonlar",
+     "Service worker"
+    ],
+    "points": 3,
+    "phase": "MVP"
+   },
+   {
+    "title": "Güvenlik ve performans testi",
+    "story": "Ekip olarak canlı öncesi güvenlik açıklarını ve yavaş sayfaları bulmak istiyoruz.",
+    "criteria": [
+     "OWASP temel kontrolleri",
+     "Lighthouse 90+ ana sayfalar"
+    ],
+    "steps": [
+     "Güvenlik taraması",
+     "Performans iyileştirmeleri"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   },
+   {
+    "title": "Pilot ve canlıya alma",
+    "story": "Kurucular olarak ilk şehirde sınırlı kullanıcıyla pilot yapıp canlıya çıkmak istiyoruz.",
+    "criteria": [
+     "Pilot şehir ve satıcı listesi (F soruları)",
+     "Canlı ortam, yedekleme, izleme",
+     "Geri dönüş planı"
+    ],
+    "steps": [
+     "Pilot planı",
+     "Canlı ortam kurulumu",
+     "Lansman kontrol listesi"
+    ],
+    "points": 5,
+    "phase": "MVP"
+   }
+  ]
+ }
+]
