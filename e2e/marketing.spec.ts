@@ -68,17 +68,29 @@ test.describe("bilgi sayfaları", () => {
       proPlan.getByText("Yıllık ₺14.900 olarak faturalanır", { exact: true }),
     ).toBeVisible();
   });
+  test("Ek hizmetler kartının zemini beyaz değildir", async ({ page }) => {
+    await page.goto("/ucretler");
+
+    const card = page
+      .getByRole("heading", { name: "Ek hizmetler" })
+      .locator("..");
+    const backgroundColor = await card.evaluate(
+      (element) => getComputedStyle(element).backgroundColor,
+    );
+
+    expect(backgroundColor).not.toBe("rgb(255, 255, 255)");
+  });
   test("iletişim formu hataları gösterir ve takip numarası üretir", async ({
     page,
   }) => {
     await page.goto("/iletisim");
-    await page.getByRole("button", { name: "Mesaj gönder" }).click();
+    await page.getByRole("button", { name: "Gönder", exact: true }).click();
     await expect(page.locator("form").getByRole("alert")).toHaveCount(4);
     const invalidFields = [
       ["Ad soyad", "Ad soyad en az 2 karakter olmalı."],
       ["E-posta", "Geçerli bir e-posta adresi yaz (ornek@alan.com)."],
       ["Mesaj", "Mesaj en az 10 karakter olmalı."],
-      [/Aydınlatma metnini/, "Devam etmek için aydınlatma metnini onayla."],
+      [/aydınlatma metnini/i, "Devam etmek için aydınlatma metnini onayla."],
     ] as const;
     for (const [label, errorMessage] of invalidFields) {
       const field = page.getByLabel(label);
@@ -87,10 +99,10 @@ test.describe("bilgi sayfaları", () => {
     }
     await page.getByLabel("Ad soyad").fill("Elif Aydın");
     await page.getByLabel("E-posta").fill("elif@ornek.com");
-    await page.getByLabel("Konu").fill("Basın");
+    await page.getByLabel("Konu").selectOption("Basın");
     await page.getByLabel("Mesaj").fill("Merhaba, bilgi almak istiyorum.");
-    await page.getByLabel(/Aydınlatma metnini/).check();
-    await page.getByRole("button", { name: "Mesaj gönder" }).click();
+    await page.getByLabel(/aydınlatma metnini/i).check();
+    await page.getByRole("button", { name: "Gönder", exact: true }).click();
     await expect(page.getByText(/MRT-\d{4}-\d{4}/)).toBeVisible();
   });
   test("footer bilgi bağlantıları ilgili sayfaları açar", async ({ page }) => {

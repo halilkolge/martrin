@@ -102,7 +102,7 @@ export function ShowcaseFields() {
               İzmir lansmanı için 3 AVM ekranı ve 2 billboard seçildi.
             </p>
           </Card>
-          <Card className="bg-lime">
+          <Card tone="lime">
             <h3 className="font-display text-lg font-semibold text-ink">
               Öne çıkan
             </h3>

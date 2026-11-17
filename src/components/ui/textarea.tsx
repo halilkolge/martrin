@@ -54,7 +54,7 @@ export function Textarea({
         className={cn(fieldClasses(Boolean(error)), "py-3", className)}
       />
       {error ? (
-        <p id={errorId} className="text-sm text-bad">
+        <p id={errorId} role="alert" className="text-sm text-bad">
           {error}
         </p>
       ) : hint ? (

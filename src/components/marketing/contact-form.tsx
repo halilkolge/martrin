@@ -4,87 +4,136 @@ import {
   submitContact,
   type ContactState,
 } from "@/app/(marketing)/iletisim/actions";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 const initial: ContactState = {};
+const topics = [
+  "Reklam vermek istiyorum",
+  "Alanımı listelemek istiyorum",
+  "Influencer olarak katılmak",
+  "Belediye iş birliği",
+  "Ödeme ve fatura",
+  "Basın",
+];
 export function ContactForm() {
   const [state, action, pending] = useActionState(submitContact, initial);
   if (state.ticket)
     return (
-      <section className="rounded-card bg-white p-8">
+      <section className="grid gap-4 rounded-card bg-white p-6 md:p-8">
         <h2 className="font-display text-3xl font-semibold">Mesajın alındı</h2>
-        <p className="mt-3">Mesajını ilgili ekibe ilettik.</p>
-        <p className="mt-4">
-          Takip numaran: <b>{state.ticket}</b>
-        </p>
+        <p>Takip numaran</p>
+        <b className="font-display text-2xl">{state.ticket}</b>
+        <p>Sonraki yazışmalarda bu numarayı belirt.</p>
       </section>
     );
-  const fields = [
-    ["name", "Ad soyad", "text"],
-    ["email", "E-posta", "email"],
-    ["phone", "Telefon (isteğe bağlı)", "tel"],
-    ["topic", "Konu", "text"],
-  ] as const;
   return (
     <form
       action={action}
-      className="grid gap-4 rounded-card bg-white p-6"
+      className="grid gap-4 rounded-card bg-white p-6 md:p-8"
       noValidate
     >
-      <h2 className="font-display text-2xl font-semibold">Mesaj gönder</h2>
-      {fields.map(([name, label, type]) => (
-        <div key={name} className="grid gap-1">
-          <label htmlFor={name}>{label}</label>
-          <input
-            id={name}
-            name={name}
-            type={type}
-            className="h-12 rounded-2xl bg-paper px-4"
-            aria-invalid={Boolean(state.errors?.[name])}
-            aria-describedby={
-              state.errors?.[name] ? `${name}-error` : undefined
-            }
-          />
-          {state.errors?.[name] ? (
-            <p id={`${name}-error`} className="text-bad" role="alert">
-              {state.errors[name]}
-            </p>
-          ) : null}
-        </div>
-      ))}
-      <div className="grid gap-1">
-        <label htmlFor="message">Mesaj</label>
-        <textarea
-          id="message"
-          name="message"
-          rows={5}
-          className="rounded-2xl bg-paper p-4"
-          aria-invalid={Boolean(state.errors?.message)}
-          aria-describedby={state.errors?.message ? "message-error" : undefined}
+      <div>
+        <h2 className="font-display text-2xl font-semibold">Mesaj gönder</h2>
+        <p className="mt-1 text-muted">
+          &quot;İsteğe bağlı&quot; yazanlar dışında tüm alanlar zorunlu.
+        </p>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Input
+          label="Ad soyad"
+          id="name"
+          name="name"
+          autoComplete="name"
+          placeholder="Elif Aydın"
+          required
+          error={state.errors?.name}
         />
-        {state.errors?.message ? (
-          <p id="message-error" className="text-bad" role="alert">
-            {state.errors.message}
-          </p>
+        <Input
+          label="E-posta"
+          id="email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          inputMode="email"
+          placeholder="elif@ornek.com"
+          required
+          error={state.errors?.email}
+        />
+        <Input
+          label={
+            <>
+              Telefon<span className="text-muted"> (isteğe bağlı)</span>
+            </>
+          }
+          id="phone"
+          name="phone"
+          type="tel"
+          autoComplete="tel"
+          inputMode="tel"
+          placeholder="05xx xxx xx xx"
+          error={state.errors?.phone}
+        />
+        <Input
+          label={
+            <>
+              Şirket<span className="text-muted"> (isteğe bağlı)</span>
+            </>
+          }
+          id="company"
+          name="company"
+          autoComplete="organization"
+          placeholder="Kuzey Kahve A.Ş."
+        />
+      </div>
+      <Select
+        label="Konu"
+        id="topic"
+        name="topic"
+        defaultValue=""
+        required
+        error={state.errors?.topic}
+      >
+        <option value="">Yukarıdan seç ya da yaz</option>
+        {topics.map((topic) => (
+          <option key={topic}>{topic}</option>
+        ))}
+      </Select>
+      <Textarea
+        label="Mesaj"
+        id="message"
+        name="message"
+        rows={6}
+        placeholder="Kampanya dönemi, şehir, bütçe ya da sipariş numarası gibi detayları ekle."
+        required
+        error={state.errors?.message}
+      />
+      <Checkbox
+        label={
+          <>
+            <a className="underline underline-offset-2" href="/kvkk">
+              KVKK aydınlatma metnini
+            </a>{" "}
+            okudum; iletişim bilgilerimin bu talebe yanıt vermek için
+            işlenmesini onaylıyorum.
+          </>
+        }
+        id="kvkk"
+        name="kvkk"
+        error={state.errors?.kvkk}
+      />
+      <div className="flex flex-wrap items-center gap-4">
+        <Button type="submit" disabled={pending}>
+          Gönder
+        </Button>
+        {Object.values(state.errors ?? {}).length > 0 ? (
+          <span className="text-sm text-bad">
+            İşaretli alanları kontrol et.
+          </span>
         ) : null}
       </div>
-      <label className="flex items-start gap-3">
-        <input
-          id="kvkk"
-          type="checkbox"
-          name="kvkk"
-          className="mt-1"
-          aria-invalid={Boolean(state.errors?.kvkk)}
-          aria-describedby={state.errors?.kvkk ? "kvkk-error" : undefined}
-        />
-        <span>Aydınlatma metnini okudum ve onaylıyorum.</span>
-      </label>
-      {state.errors?.kvkk ? (
-        <p id="kvkk-error" className="text-bad" role="alert">
-          {state.errors.kvkk}
-        </p>
-      ) : null}
-      <button disabled={pending} className="h-12 rounded-2xl bg-ink text-white">
-        {pending ? "Gönderiliyor…" : "Mesaj gönder"}
-      </button>
     </form>
   );
 }

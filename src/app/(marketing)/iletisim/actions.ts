@@ -1,5 +1,6 @@
 "use server";
 import { contactSchema } from "@/lib/contact-schema";
+import { logger } from "@/lib/logger";
 export type ContactState = { errors?: Record<string, string>; ticket?: string };
 export async function submitContact(
   _previous: ContactState,
@@ -26,6 +27,6 @@ export async function submitContact(
     };
   const now = new Date();
   const ticket = `MRT-${String(now.getFullYear()).slice(-2)}${String(now.getMonth() + 1).padStart(2, "0")}-${String(Math.floor(Math.random() * 9000) + 1000)}`;
-  console.info("İletişim talebi alındı", { ticket, topic: parsed.data.topic });
+  logger.info("İletişim talebi alındı", { ticket, topic: parsed.data.topic });
   return { ticket };
 }

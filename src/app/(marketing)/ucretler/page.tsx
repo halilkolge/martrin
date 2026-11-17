@@ -2,23 +2,95 @@
 import { useState } from "react";
 import { formatTRY } from "@/lib/format-try";
 import { yearlyMonthly, yearlyTotal } from "@/lib/pricing";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 const plans = {
   seller: [
-    ["Başlangıç", "Bireysel influencer ve tek alanlı işletmeler", 0],
-    ["Pro", "Düzenli iş alan içerik üreticileri ve alan sahipleri", 149000],
-    ["Kurumsal", "Açık hava şirketleri, AVM'ler ve ajans ekipleri", 499000],
+    {
+      name: "Başlangıç",
+      desc: "Bireysel influencer ve tek alanlı işletmeler",
+      price: 0,
+      cta: "Ücretsiz başla",
+      href: "/panel/satici",
+      feats: [
+        "Sınırsız ilan ve paket",
+        "Standart kategori komisyonu",
+        "Emanetli ödeme ve kanıt yükleme",
+        "Teklif ve ters ihalelere katılım",
+        "Kazanç defteri",
+      ],
+    },
+    {
+      name: "Pro",
+      desc: "Düzenli iş alan içerik üreticileri ve alan sahipleri",
+      price: 149000,
+      cta: "Pro'ya geç",
+      href: "/panel/satici",
+      feats: [
+        "Komisyonda 2 puan indirim",
+        "Ayda 1 hafta ücretsiz öne çıkarma",
+        "3 kişilik ekip, rol ve yetki yönetimi",
+        "Doluluk takvimi senkronu",
+        "Gelişmiş kazanç raporu ve dışa aktarma",
+      ],
+    },
+    {
+      name: "Kurumsal",
+      desc: "Açık hava şirketleri, AVM'ler ve ajans ekipleri",
+      price: 499000,
+      cta: "Satışla görüş",
+      href: "/iletisim",
+      feats: [
+        "Komisyonda 4 puan indirim",
+        "Toplu envanter yükleme (Excel)",
+        "Sınırsız ekip üyesi",
+        "API ve entegrasyon erişimi",
+        "Özel hesap yöneticisi",
+      ],
+    },
   ],
   buyer: [
-    ["Ücretsiz", "Ara sıra kampanya yapan işletmeler", 0],
-    ["Marka Pro", "Her ay kampanya yapan markalar", 99000],
-    ["Ajans", "Birden fazla markayı yöneten ajanslar", 399000],
+    {
+      name: "Ücretsiz",
+      desc: "Ara sıra kampanya yapan işletmeler",
+      price: 0,
+      cta: "Hemen keşfet",
+      href: "/alanlar",
+      feats: [
+        "Tüm alanlara ve influencer'lara erişim",
+        "Tek sepetten karma kampanya",
+        "Emanetli ödeme ve kanıt onayı",
+        "İlan ve ters ihale açma",
+      ],
+    },
+    {
+      name: "Marka Pro",
+      desc: "Her ay kampanya yapan markalar",
+      price: 99000,
+      cta: "Pro'ya geç",
+      href: "/panel/reklamveren",
+      feats: [
+        "Ayda 1 ücretsiz saha denetimi",
+        "Kampanya ölçüm raporu (QR, kod, link)",
+        "Kayıtlı aramalar ve fiyat alarmı",
+        "Öncelikli destek",
+      ],
+    },
+    {
+      name: "Ajans",
+      desc: "Birden fazla markayı yöneten ajanslar",
+      price: 399000,
+      cta: "Satışla görüş",
+      href: "/iletisim",
+      feats: [
+        "Sınırsız marka hesabı",
+        "Ekip üyeleri ve onay akışı",
+        "Toplu teklif isteme",
+        "Müşteriye özel beyaz etiketli rapor",
+      ],
+    },
   ],
 } as const;
-const features = [
-  "Sınırsız ilan ve paket",
-  "Standart kategori komisyonu",
-  "Emanetli ödeme ve kanıt yükleme",
-];
 export default function PricingPage() {
   const [buyer, setBuyer] = useState(false);
   const [annual, setAnnual] = useState(false);
@@ -26,68 +98,81 @@ export default function PricingPage() {
     <div className="mx-auto grid max-w-[1280px] gap-8 px-4 py-12 sm:px-8 lg:px-12">
       <header className="mx-auto grid max-w-3xl justify-items-center gap-4 text-center">
         <h1 className="font-display text-4xl font-semibold md:text-6xl">
-          Ücretler ve <span className="pill-word">paketler</span>
+          Ücretler ve{" "}
+          <span className="rounded-full bg-lime px-3 py-1">paketler</span>
         </h1>
         <p className="text-lg text-muted">
           Listelemek ücretsiz. Martrin yalnızca iş tamamlanınca komisyon alır.
           Daha fazlasına ihtiyacın olursa paket seç.
         </p>
         <div className="flex flex-wrap justify-center gap-2">
-          <button
-            className="rounded-xl bg-white px-4 py-3"
+          <Button
+            variant={!buyer ? "dark" : "outline"}
             onClick={() => setBuyer(false)}
             aria-pressed={!buyer}
           >
             Satıcılar için
-          </button>
-          <button
-            className="rounded-xl bg-white px-4 py-3"
+          </Button>
+          <Button
+            variant={buyer ? "dark" : "outline"}
             onClick={() => setBuyer(true)}
             aria-pressed={buyer}
           >
             Reklam verenler için
-          </button>
-          <button
-            className="rounded-xl bg-violet-soft px-4 py-3"
+          </Button>
+          <Button
+            variant={!annual ? "dark" : "outline"}
             onClick={() => setAnnual(false)}
             aria-pressed={!annual}
           >
             Aylık
-          </button>
-          <button
-            className="rounded-xl bg-violet-soft px-4 py-3"
+          </Button>
+          <Button
+            variant={annual ? "dark" : "outline"}
             onClick={() => setAnnual(true)}
             aria-pressed={annual}
           >
-            Yıllık · 2 ay bedava
-          </button>
+            Yıllık{" "}
+            <span className="rounded-full bg-white px-2 py-0.5 text-xs">
+              2 ay bedava
+            </span>
+          </Button>
         </div>
       </header>
       <div className="grid gap-4 md:grid-cols-3">
-        {(buyer ? plans.buyer : plans.seller).map(([name, desc, price]) => (
-          <article key={name} className="rounded-card bg-white p-6">
-            <h2 className="font-display text-2xl font-semibold">{name}</h2>
-            <p className="my-3 text-muted">{desc}</p>
+        {(buyer ? plans.buyer : plans.seller).map((plan) => (
+          <Card
+            key={plan.name}
+            role="article"
+            className="grid content-start gap-3"
+          >
+            <h2 className="font-display text-2xl font-semibold">{plan.name}</h2>
+            <p className="text-muted">{plan.desc}</p>
             <p className="font-display text-4xl font-semibold">
-              {formatTRY(annual ? yearlyMonthly(price) : price)}
+              {formatTRY(annual ? yearlyMonthly(plan.price) : plan.price)}
               <small className="text-base">
-                {price ? " / ay" : " her zaman"}
+                {plan.price ? " / ay" : " her zaman"}
               </small>
             </p>
-            {annual && price > 0 ? (
-              <p>Yıllık {formatTRY(yearlyTotal(price))} olarak faturalanır</p>
+            {annual && plan.price > 0 ? (
+              <p>
+                Yıllık {formatTRY(yearlyTotal(plan.price))} olarak faturalanır
+              </p>
             ) : null}
+            <Button href={plan.href} variant="dark">
+              {plan.cta}
+            </Button>
             <h3 className="mt-5 font-medium">Neler dahil?</h3>
             <ul className="mt-2 list-inside list-disc">
-              {features.map((f) => (
+              {plan.feats.map((f) => (
                 <li key={f}>{f}</li>
               ))}
             </ul>
-          </article>
+          </Card>
         ))}
       </div>
       <div className="grid gap-5 lg:grid-cols-2">
-        <section className="rounded-card bg-white p-6">
+        <Card>
           <h2 className="font-display text-2xl font-semibold">
             Kategori komisyonları
           </h2>
@@ -116,8 +201,8 @@ export default function PricingPage() {
             Reklam veren komisyon ödemez. Kart ve ödeme altyapısı masrafları
             dahildir.
           </p>
-        </section>
-        <section className="rounded-card bg-ink p-6 text-white">
+        </Card>
+        <Card tone="ink">
           <h2 className="font-display text-2xl font-semibold">Ek hizmetler</h2>
           <ul className="mt-4 grid gap-3">
             {[
@@ -149,8 +234,20 @@ export default function PricingPage() {
               </li>
             ))}
           </ul>
-        </section>
+        </Card>
       </div>
+      <Card
+        tone="violet"
+        className="grid gap-4 md:grid-cols-[auto_1fr_auto] md:items-center"
+      >
+        <div>
+          <b className="font-display text-2xl">
+            Büyük bir kampanya mı planlıyorsun?
+          </b>
+          <p>81 ilde karma kampanyalar için ekibimiz teklif hazırlar.</p>
+        </div>
+        <Button href="/iletisim">Teklif iste</Button>
+      </Card>
       <p className="text-center text-sm text-muted">
         Fiyatlar prototip içindir ve KDV hariçtir. Gelir modeli kararları (A1,
         A2, A5) netleşince güncellenecek.
