@@ -1,2 +1,29 @@
 .idea
 .vscode
+
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+/build
+
+# testing
+/coverage
+/playwright-report/
+/test-results/
+
+# env files
+.env*
+!.env.example
+
+# misc
+.DS_Store
+._*
+*.tsbuildinfo
+next-env.d.ts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*

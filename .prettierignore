@@ -1,0 +1,18 @@
+node_modules
+.next
+out
+build
+coverage
+playwright-report
+test-results
+pnpm-lock.yaml
+next-env.d.ts
+design
+._*
+**/._*
+
+# Kapsam dışı, önceden var olan dosyalar (bu issue'da biçimlendirilmez)
+.github/**
+docs/**
+AGENTS.md
+README.md

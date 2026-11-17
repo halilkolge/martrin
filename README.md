@@ -251,3 +251,45 @@ Pilotla canlıya güvenle çıkmak. Toplam 13 puan.
 - `main` dalı korunur, doğrudan commit atılmaz. Geliştirme `prototip` ya da iş başına açılan dallarda yapılır ve PR ile birleştirilir.
 - PR açıklamasına `Closes #<issue>` yazılınca ilgili iş birleşmeyle kapanır.
 - Pano: GitHub Projects'te Board görünümü (Backlog → Sprint → Yapılıyor → İncelemede → Bitti).
+
+## Geliştirme
+
+Proje Node.js ve pnpm ile geliştirilir. Node sürümü `.nvmrc` dosyasında belirtilir (26). Gerekli sürümü kurmak için [nvm](https://github.com/nvm-sh/nvm) kullanabilirsiniz:
+
+```bash
+nvm install
+nvm use
+```
+
+pnpm kurulu değilse: `corepack enable`. Corepack, `package.json` dosyasındaki `packageManager` alanında yazan pnpm sürümünü etkinleştirir.
+
+Repoyu klonlayıp bağımlılıkları kurun:
+
+```bash
+git clone https://github.com/halilkolge/martrin.git
+cd martrin
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+Uygulama http://localhost:3000 adresinde açılır.
+
+AGENTS.md bölüm 6'daki standart komutlar:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm e2e      # yalnızca issue'da e2e EVAL'i varsa
+```
+
+Biçimlendirme komutları:
+
+```bash
+pnpm format
+pnpm format:check
+```
+
+Uçtan uca testler ilk çalıştırmada Chromium tarayıcısını ister: `pnpm exec playwright install chromium`.
