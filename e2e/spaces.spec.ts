@@ -6,7 +6,7 @@ test.describe("alan arama", () => {
     page,
   }) => {
     await page.goto("/alanlar");
-    await page.getByRole("button", { name: "AVM LED", exact: true }).click();
+    await page.getByRole("checkbox", { name: "AVM LED", exact: true }).check();
 
     await expect(page).toHaveURL(/(?:\?|&)type=avm_led(?:&|$)/);
     await expect(page.locator("[data-space-id]")).toHaveCount(1);
@@ -21,6 +21,7 @@ test.describe("alan arama", () => {
     await page.goto("/alanlar");
     await page.getByRole("button", { name: "Harita", exact: true }).click();
 
+    await expect(page.getByText("6 alan haritada")).toBeVisible();
     await expect(page.locator(".leaflet-marker-icon")).toHaveCount(6);
     await expect(page.locator(".leaflet-control-attribution")).toContainText(
       "OpenStreetMap katkıcıları",

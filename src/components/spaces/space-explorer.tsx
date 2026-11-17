@@ -9,6 +9,7 @@ import type { SpaceCard as SpaceCardData } from "@/server/spaces/search";
 import { SpaceCard } from "./space-card";
 import { SpaceFilters } from "./space-filters";
 import { SpaceMapLoader } from "./space-map-loader";
+import { SpacePagination } from "./space-pagination";
 
 export function SpaceExplorer({
   params,
@@ -30,9 +31,11 @@ export function SpaceExplorer({
         className="grid min-w-0 content-start gap-6"
       >
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="font-display text-[17px]">
-            <b className="tabular-nums">{total}</b> alan bulundu
-          </p>
+          {view === "map" ? (
+            <p className="font-display text-[17px]">
+              <b className="tabular-nums">{spaces.length}</b> alan haritada
+            </p>
+          ) : null}
           <div
             className="inline-flex rounded-2xl bg-white p-1 text-[14px] font-display"
             role="group"
@@ -88,6 +91,13 @@ export function SpaceExplorer({
             </Link>
           </div>
         )}
+        {view === "list" && total > 20 ? (
+          <SpacePagination
+            params={params}
+            page={params.page ?? 1}
+            total={total}
+          />
+        ) : null}
       </section>
     </div>
   );

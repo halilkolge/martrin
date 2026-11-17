@@ -39,10 +39,7 @@ const minPriceUnitExpression = sql<string>`(
 )`;
 
 function getConditions(params: SpaceSearchParams): SQL[] {
-  const conditions: SQL[] = [
-    eq(spaces.status, "active"),
-    sql`${minPriceExpression} IS NOT NULL`,
-  ];
+  const conditions: SQL[] = [eq(spaces.status, "active")];
   if (params.city) conditions.push(eq(spaces.city, params.city));
   if (params.types?.length)
     conditions.push(
@@ -96,7 +93,10 @@ export function createSpaceSearchQuery(params: SpaceSearchParams = {}) {
   if (distanceExpression && (!params.sort || params.sort === "distance")) {
     itemQuery.orderBy(asc(distanceExpression), asc(spaces.id));
   } else if (params.sort === "price") {
-    itemQuery.orderBy(asc(minPriceExpression), asc(spaces.id));
+    itemQuery.orderBy(
+      sql`${minPriceExpression} ASC NULLS LAST`,
+      asc(spaces.id),
+    );
   } else {
     itemQuery.orderBy(asc(spaces.city), asc(spaces.title));
   }

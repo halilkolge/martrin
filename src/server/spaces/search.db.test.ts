@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { sql as drizzleSql } from "drizzle-orm";
 
 import { db, sql } from "@/db/client";
-import { spaces } from "@/db/schema/spaces";
+import { spacePrices, spaces } from "@/db/schema/spaces";
 import { createSpaceSearchQuery, searchSpaces } from "./search";
 
 const expectedTitles = {
@@ -47,6 +47,8 @@ describe("searchSpaces", () => {
 
     expect(querySql).toContain('"space_id" = "spaces"."id"');
     expect(querySql).toContain('"spaces"."location"::geography');
+    expect(querySql).toContain("ASC NULLS LAST");
+    expect(querySql).not.toContain("NULLS LAST asc");
   });
 
   it("şehir, çoklu tip, fiyat ve dijital filtrelerinde beklenen alanları döndürür", async () => {
@@ -156,6 +158,71 @@ describe("searchSpaces", () => {
     expect(result.items.map((item) => item.title)).toEqual(
       expectedTitles.byPrice,
     );
+  });
+
+  it("sayfalar ve fiyatsız aktif alanı yalnız fiyat filtresinde dışarıda bırakır", async () => {
+    const [seedSpace] = await db
+      .select({ ownerId: spaces.ownerId })
+      .from(spaces)
+      .where(eq(spaces.title, "Taksim Işıklı Billboard"));
+    expect(seedSpace).toBeDefined();
+    if (!seedSpace) return;
+
+    const temporarySpaces = await db
+      .insert(spaces)
+      .values(
+        Array.from({ length: 15 }, (_, index) => ({
+          ownerId: seedSpace.ownerId,
+          title: `Sayfalama Test Alanı ${String(index + 1).padStart(2, "0")}`,
+          type: "billboard" as const,
+          city: "Test şehri",
+          district: "Test ilçesi",
+          location: drizzleSql`ST_SetSRID(ST_MakePoint(28.985, 41.0369), 4326)`,
+          widthCm: 1200,
+          heightCm: 400,
+          lit: true,
+          digital: false,
+          printOption: "extra" as const,
+          estDailyViews: 1,
+          status: "active" as const,
+        })),
+      )
+      .returning({ id: spaces.id, title: spaces.title });
+
+    try {
+      await db.insert(spacePrices).values(
+        temporarySpaces.slice(0, 14).map((space, index) => ({
+          spaceId: space.id,
+          unit: "day" as const,
+          priceKurus: (index + 1) * 100_000,
+        })),
+      );
+
+      const firstPage = await searchSpaces({ sort: "price", page: 1 });
+      const secondPage = await searchSpaces({ sort: "price", page: 2 });
+      expect(firstPage.total).toBe(21);
+      expect(firstPage.page).toBe(1);
+      expect(firstPage.pageSize).toBe(20);
+      expect(firstPage.items).toHaveLength(20);
+      expect(secondPage.total).toBe(21);
+      expect(secondPage.page).toBe(2);
+      expect(secondPage.items).toHaveLength(1);
+      expect(secondPage.items[0]).toMatchObject({
+        title: "Sayfalama Test Alanı 15",
+        minPriceKurus: null,
+        minPriceUnit: null,
+      });
+
+      const filtered = await searchSpaces({ maxPriceKurus: 50_000_000 });
+      expect(filtered.total).toBe(20);
+      expect(
+        filtered.items.some((item) => item.title === "Sayfalama Test Alanı 15"),
+      ).toBe(false);
+    } finally {
+      for (const space of temporarySpaces) {
+        await db.delete(spaces).where(eq(spaces.id, space.id));
+      }
+    }
   });
 
   afterAll(async () => {

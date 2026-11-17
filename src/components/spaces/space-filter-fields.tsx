@@ -1,7 +1,6 @@
 "use client";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { Chip } from "@/components/ui/chip";
 import { Select } from "@/components/ui/select";
 import { formatTRY } from "@/lib/format-try";
 import { type SpaceSearchParams, type SpaceType } from "@/lib/search-params";
@@ -53,15 +52,16 @@ export function SpaceFilterFields({
         <legend className="font-display text-[12.5px] text-muted">
           Alan tipi
         </legend>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="grid gap-3">
           {(Object.entries(TYPE_LABELS) as [SpaceType, string][]).map(
             ([type, label]) => {
               const selected = params.types?.includes(type) ?? false;
               return (
-                <Chip
+                <Checkbox
                   key={type}
-                  pressed={selected}
-                  onPressedChange={() =>
+                  label={label}
+                  checked={selected}
+                  onChange={() =>
                     onNavigate({
                       ...params,
                       types: selected
@@ -70,10 +70,7 @@ export function SpaceFilterFields({
                       page: undefined,
                     })
                   }
-                  className={`!h-auto !min-h-0 !px-3 !py-1.5 !text-[13px] focus-visible:ring-2 focus-visible:ring-violet ${selected ? "!bg-ink !text-white" : "!bg-paper !text-ink hover:!bg-line"}`}
-                >
-                  {label}
-                </Chip>
+                />
               );
             },
           )}
@@ -85,7 +82,7 @@ export function SpaceFilterFields({
           htmlFor="space-max-price"
           className="flex justify-between gap-2 text-[14px]"
         >
-          <span>En yüksek başlangıç fiyatı</span>
+          <span>Başlangıç fiyatı</span>
           <span className="shrink-0 font-medium tabular-nums">
             ≤ {formatTRY(maxPrice)}
           </span>
@@ -101,7 +98,8 @@ export function SpaceFilterFields({
           className="w-full accent-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet"
         />
       </fieldset>
-      <div className="border-t border-line pt-4">
+      <fieldset className="grid gap-2 border-t border-line pt-4">
+        <legend className="font-display text-[12.5px] text-muted">Ekran</legend>
         <Checkbox
           label="Sadece dijital ekranlar"
           checked={params.digital ?? false}
@@ -113,7 +111,7 @@ export function SpaceFilterFields({
             })
           }
         />
-      </div>
+      </fieldset>
       <div className="grid gap-1 border-t border-line pt-4">
         <p className="font-display text-[12.5px] text-muted">
           Tarih aralığında müsaitlik

@@ -36,27 +36,29 @@ export function SpaceCard({
       data-space-id={space.id}
       className={`grid min-w-0 gap-3 rounded-card bg-white p-3 transition ${highlighted ? "ring-2 ring-violet" : "hover:shadow-card"}`}
     >
-      <button
-        type="button"
-        onClick={onSelect}
-        aria-label={`${space.title} haritada göster${space.digital ? " · ● Dijital" : ""}`}
-        className="relative block aspect-[16/10] overflow-hidden rounded-img bg-paper text-left focus-visible:ring-2 focus-visible:ring-violet"
-      >
-        {space.photoUrl ? (
-          <Image
-            src={space.photoUrl}
-            alt={space.title}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            className="object-cover"
-          />
-        ) : null}
+      <div className="relative">
+        <button
+          type="button"
+          onClick={onSelect}
+          aria-label={`${space.title} haritada göster`}
+          className="relative block aspect-[16/10] w-full overflow-hidden rounded-img bg-paper text-left focus-visible:ring-2 focus-visible:ring-violet"
+        >
+          {space.photoUrl ? (
+            <Image
+              src={space.photoUrl}
+              alt={space.title}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+              className="object-cover"
+            />
+          ) : null}
+        </button>
         {space.digital ? (
-          <span className="absolute left-3 top-3 rounded-full bg-ink px-3 py-1 text-[12px] font-medium text-lime">
+          <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-ink px-3 py-1 text-[12px] font-medium text-lime">
             ● Dijital
           </span>
         ) : null}
-      </button>
+      </div>
       <div className="grid min-w-0 gap-1 px-1">
         <h2 className="truncate font-display text-[17px] font-medium">
           {space.title}
