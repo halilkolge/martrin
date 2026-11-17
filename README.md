@@ -1,5 +1,7 @@
 # Martrin
 
+[![CI](https://github.com/halilkolge/martrin/actions/workflows/ci.yml/badge.svg)](https://github.com/halilkolge/martrin/actions/workflows/ci.yml)
+
 > **Göz neredeyse, markan orada.**  
 > Influencer'dan billboarda, 81 ilde tek sepet.
 
