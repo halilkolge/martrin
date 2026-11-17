@@ -1,17 +1,82 @@
 @import "tailwindcss";
 
-:root {
-  --background: #f4f4ef;
-  --foreground: #151515;
+/*
+ * Martrin tasarım token'ları.
+ * Kaynak: design/prototype/tailwind.config.js ve design/prototype/src/index.css.
+ * Renkler yalnızca burada tanımlanır; bileşenlerde sabit renk kodu kullanılmaz.
+ */
+@theme {
+  /* Renkler */
+  --color-ink: #151515;
+  --color-ink-2: #232323;
+  --color-ink-3: #0d0d0d;
+  --color-paper: #f4f4ef;
+  --color-line: #e4e4de;
+  --color-muted: #5d6370;
+  --color-shell: #d5dadc;
+
+  --color-lime: #d6f45b;
+  --color-lime-soft: #f0fbc8;
+
+  --color-violet: #a77bff;
+  --color-violet-soft: #efe6ff;
+  --color-violet-ink: #6c3fd6;
+
+  --color-sky: #bcd6ee;
+  --color-sky-soft: #e7f0f9;
+  --color-sky-ink: #2f5cb8;
+
+  --color-rose-soft: #fde6ec;
+  --color-rose-ink: #c02a4f;
+
+  --color-mint-soft: #e3f6e6;
+  --color-mint-ink: #1f7a3a;
+
+  --color-live: #ff5a1f;
+  --color-ok: #2c9a4b;
+  --color-warn: #c2620a;
+  --color-warn-ink: #8f4708;
+  --color-warn-soft: #fff1dc;
+  --color-bad: #d6334b;
+
+  /* Yazı tipleri: next/font değişkenleri src/app/layout.tsx içinde bağlanır. */
+  --font-sans:
+    var(--font-dm-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-poppins), system-ui, sans-serif;
+
+  /* Köşe yarıçapları */
+  --radius-card: 28px;
+  --radius-img: 22px;
+  --radius-2xl: 16px;
+
+  /* Gölgeler */
+  --shadow-card: 0 18px 40px -24px rgb(21 21 21 / 0.35);
+  --shadow-float: 0 24px 60px -30px rgb(21 21 21 / 0.45);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-}
+@layer base {
+  :root {
+    color-scheme: light;
+  }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: "DM Sans", system-ui, sans-serif;
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-violet);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
