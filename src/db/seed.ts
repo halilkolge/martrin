@@ -120,6 +120,9 @@ export async function seedDatabase(): Promise<void> {
       widthCm,
       heightCm,
       option,
+      photoUrl,
+      priceKurus,
+      priceUnit,
     ] of spaceRows) {
       const ownerEmail =
         city === "İstanbul" && title !== "Kentpark Dev LED"
@@ -140,6 +143,7 @@ export async function seedDatabase(): Promise<void> {
             .values({
               ownerId,
               title,
+              photoUrl,
               type,
               city,
               district,
@@ -153,16 +157,20 @@ export async function seedDatabase(): Promise<void> {
               status: "active",
             })
             .returning();
-      if (!space) throw new Error(`Alan oluşturulamadı: ${title}`);
-      for (const [unit, priceKurus] of [
-        ["week", 2_600_000],
-        ["month", 8_800_000],
-      ] as const) {
+      if (space && space.photoUrl !== photoUrl) {
         await db
-          .insert(spacePrices)
-          .values({ spaceId: space.id, unit, priceKurus })
-          .onConflictDoNothing();
+          .update(spaces)
+          .set({ photoUrl })
+          .where(eq(spaces.id, space.id));
       }
+      if (!space) throw new Error(`Alan oluşturulamadı: ${title}`);
+      await db
+        .insert(spacePrices)
+        .values({ spaceId: space.id, unit: priceUnit, priceKurus })
+        .onConflictDoUpdate({
+          target: [spacePrices.spaceId, spacePrices.unit],
+          set: { priceKurus },
+        });
     }
     const advertiserId = byEmail.get(userRows[1][0]);
     if (!advertiserId) throw new Error("Eksik reklam veren");

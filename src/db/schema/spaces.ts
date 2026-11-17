@@ -56,6 +56,7 @@ export const spaces = pgTable(
       .notNull()
       .references(() => users.id, { onDelete: "restrict" }),
     title: text("title").notNull(),
+    photoUrl: text("photo_url"),
     type: spaceType("type").notNull(),
     city: text("city").notNull(),
     district: text("district").notNull(),
