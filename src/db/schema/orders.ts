@@ -109,7 +109,7 @@ export const payments = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     orderId: uuid("order_id")
       .notNull()
-      .references(() => orders.id, { onDelete: "cascade" }),
+      .references(() => orders.id, { onDelete: "restrict" }),
     provider: text("provider").notNull(),
     providerRef: text("provider_ref"),
     status: paymentStatus("status").notNull(),

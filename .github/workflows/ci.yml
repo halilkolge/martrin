@@ -117,3 +117,9 @@ jobs:
         run: pnpm db:seed
       - name: Veritabanı testleri
         run: pnpm test:db
+      - name: Veritabanını iki kez sıfırla
+        run: |
+          pnpm db:reset
+          pnpm db:reset
+      - name: Seed satır sayılarını doğrula
+        run: pnpm exec tsx src/db/check-counts.ts

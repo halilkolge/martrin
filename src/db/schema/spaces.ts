@@ -7,6 +7,7 @@ import {
   pgEnum,
   pgTable,
   text,
+  timestamp,
   unique,
   uuid,
 } from "drizzle-orm/pg-core";
@@ -66,6 +67,9 @@ export const spaces = pgTable(
     printOption: printOption("print_option").notNull(),
     estDailyViews: integer("est_daily_views").notNull(),
     status: spaceStatus("status").notNull().default("draft"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (table) => [
     index("spaces_location_gist_idx").using("gist", table.location),
