@@ -17,7 +17,8 @@
      "Kararı ADR olarak yaz ve README'yi güncelle"
     ],
     "points": 2,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "insan"
    },
    {
     "title": "Repo iskeleti ve kod standartları",
@@ -34,7 +35,8 @@
      ".env örnek dosyasını ekle"
     ],
     "points": 3,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "yesil"
    },
    {
     "title": "CI/CD hattı",
@@ -49,7 +51,8 @@
      "Gizli anahtarları ortam değişkenlerine taşı"
     ],
     "points": 3,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "yesil"
    },
    {
     "title": "Veritabanı şeması ve göç altyapısı",
@@ -66,7 +69,8 @@
      "Prototipteki hayali verilerle seed oluştur"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Tasarım sistemi ve ortak bileşenler",
@@ -83,7 +87,8 @@
      "Bileşen önizleme sayfası ekle"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "yesil"
    },
    {
     "title": "Hata izleme ve loglama",
@@ -97,7 +102,8 @@
      "Log seviyelerini ve maskelemeyi ayarla"
     ],
     "points": 2,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    }
   ]
  },
@@ -121,7 +127,8 @@
      "Oturum ve hız sınırını ekle"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "Roller ve yetkilendirme",
@@ -136,7 +143,8 @@
      "Menüyü role göre süz"
     ],
     "points": 3,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "Alan sahibi başvurusu",
@@ -153,7 +161,8 @@
      "Onay/red e-postası gönder"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Influencer başvurusu",
@@ -171,7 +180,8 @@
      "Admin onayına bağla"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "Kimlik ve vergi doğrulama (KYC)",
@@ -187,7 +197,8 @@
      "Rozeti ekle"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "Ekip yönetimi",
@@ -205,7 +216,8 @@
      "Onay akışını ve günlüğü ekle"
     ],
     "points": 8,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "İki adımlı doğrulama",
@@ -219,7 +231,8 @@
      "Ayarlar ekranını yap"
     ],
     "points": 3,
-    "phase": "Faz 2"
+    "phase": "Faz 2",
+    "risk": "kirmizi"
    }
   ]
  },
@@ -242,7 +255,8 @@
      "Paket CRUD"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Influencer listeleme ve filtre",
@@ -259,7 +273,8 @@
      "Boş sonuç durumu"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Influencer detay sayfası",
@@ -276,7 +291,8 @@
      "Benzer önerisi (aynı kategori+şehir)"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "yesil"
    },
    {
     "title": "Sosyal medya API doğrulaması",
@@ -291,7 +307,8 @@
      "Zamanlanmış güncelleme"
     ],
     "points": 13,
-    "phase": "Faz 2"
+    "phase": "Faz 2",
+    "risk": "kirmizi"
    }
   ]
  },
@@ -316,7 +333,8 @@
      "Admin onayına bağla"
     ],
     "points": 8,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Fiyat birimleri",
@@ -330,7 +348,8 @@
      "Fiyat düzenleme bileşeni"
     ],
     "points": 3,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Doluluk takvimi ve opsiyon",
@@ -347,7 +366,8 @@
      "Çakışma kontrolü"
     ],
     "points": 8,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Toplu envanter yükleme",
@@ -362,7 +382,8 @@
      "Hata raporu ekranı"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Alan arama ve harita",
@@ -377,7 +398,8 @@
      "Filtre paneli"
     ],
     "points": 8,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Alan detay sayfası",
@@ -392,7 +414,8 @@
      "Tarih seçici ve fiyat hesabı"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "yesil"
    },
    {
     "title": "Belediye ve işletici hesapları",
@@ -409,7 +432,8 @@
      "Belediye başvuru formu"
     ],
     "points": 8,
-    "phase": "Faz 2"
+    "phase": "Faz 2",
+    "risk": "sari"
    }
   ]
  },
@@ -432,7 +456,8 @@
      "Sipariş oluşturma"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Sipariş durum akışı",
@@ -447,7 +472,8 @@
      "Bildirimleri bağla"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Teklif ve karşı teklif",
@@ -463,7 +489,8 @@
      "Süre aşımı"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "İlan ve başvuru (brief)",
@@ -479,7 +506,8 @@
      "İlanlar sayfası"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Ters ihale",
@@ -495,7 +523,8 @@
      "Kapanış işi"
     ],
     "points": 8,
-    "phase": "Faz 2"
+    "phase": "Faz 2",
+    "risk": "sari"
    },
    {
     "title": "Mesajlaşma",
@@ -510,7 +539,8 @@
      "Yasaklı içerik filtresi"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Satış başına komisyon (kod/link)",
@@ -525,7 +555,8 @@
      "Raporlama"
     ],
     "points": 8,
-    "phase": "Faz 2"
+    "phase": "Faz 2",
+    "risk": "kirmizi"
    }
   ]
  },
@@ -548,7 +579,8 @@
      "Karar toplantısı"
     ],
     "points": 3,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "insan"
    },
    {
     "title": "Ödeme entegrasyonu",
@@ -564,7 +596,8 @@
      "Webhook işleme"
     ],
     "points": 8,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "Emanet ve aşamalı ödeme",
@@ -581,7 +614,8 @@
      "İade kuralları"
     ],
     "points": 8,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "Satıcı alt üye işyeri ve aktarım",
@@ -597,7 +631,8 @@
      "Aktarım raporu"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "Kategori bazlı komisyon",
@@ -612,7 +647,8 @@
      "Hesap fonksiyonu ve testleri"
     ],
     "points": 3,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "Komisyon faturası",
@@ -627,7 +663,8 @@
      "Fatura yükleme alanı"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "İptal ve iade",
@@ -641,7 +678,8 @@
      "İade çağrısı"
     ],
     "points": 3,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    }
   ]
  },
@@ -664,7 +702,8 @@
      "Kanıt kontrol listesi"
     ],
     "points": 8,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Influencer kanıtı",
@@ -680,7 +719,8 @@
      "Etiket kontrolü"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Onay ve otomatik onay",
@@ -694,7 +734,8 @@
      "Zamanlayıcı"
     ],
     "points": 3,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "İtiraz ve uyuşmazlık",
@@ -709,7 +750,8 @@
      "Kısmi iade"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "Saha denetimi siparişi",
@@ -723,7 +765,8 @@
      "Denetçi rolü ve rapor"
     ],
     "points": 5,
-    "phase": "Faz 2"
+    "phase": "Faz 2",
+    "risk": "sari"
    }
   ]
  },
@@ -745,7 +788,8 @@
      "Özet sorguları"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Satıcı paneli",
@@ -762,7 +806,8 @@
      "Takvim görünümü"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Kazanç defteri",
@@ -778,7 +823,8 @@
      "Grafik ve dışa aktarma"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Bildirimler",
@@ -794,7 +840,8 @@
      "Tercihler ekranı"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    }
   ]
  },
@@ -817,7 +864,8 @@
      "Süre işi"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "Abonelik paketleri",
@@ -834,7 +882,8 @@
      "Ücretler sayfası"
     ],
     "points": 8,
-    "phase": "Faz 2"
+    "phase": "Faz 2",
+    "risk": "kirmizi"
    },
    {
     "title": "Ölçüm raporu",
@@ -848,7 +897,8 @@
      "Rapor sayfası"
     ],
     "points": 8,
-    "phase": "Faz 2"
+    "phase": "Faz 2",
+    "risk": "sari"
    }
   ]
  },
@@ -869,7 +919,8 @@
      "Durum güncelleme"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Platform ayarları",
@@ -883,7 +934,8 @@
      "Ayar ekranı"
     ],
     "points": 3,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "Finans ve raporlar",
@@ -897,7 +949,8 @@
      "Rapor ekranı"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    }
   ]
  },
@@ -918,7 +971,8 @@
      "İletişim formu gönderimi"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "yesil"
    },
    {
     "title": "Hukuki metinler ve danışman kontrol listesi",
@@ -934,7 +988,8 @@
      "Sayfalara yerleştir"
     ],
     "points": 3,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "insan"
    },
    {
     "title": "Çerez yönetimi",
@@ -948,7 +1003,8 @@
      "Tercih paneli"
     ],
     "points": 2,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "sari"
    },
    {
     "title": "SEO ve analitik",
@@ -964,7 +1020,8 @@
      "Analitik kurulumu"
     ],
     "points": 3,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "yesil"
    }
   ]
  },
@@ -986,7 +1043,8 @@
      "Service worker"
     ],
     "points": 3,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "yesil"
    },
    {
     "title": "Güvenlik ve performans testi",
@@ -1000,7 +1058,8 @@
      "Performans iyileştirmeleri"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "kirmizi"
    },
    {
     "title": "Pilot ve canlıya alma",
@@ -1016,7 +1075,8 @@
      "Lansman kontrol listesi"
     ],
     "points": 5,
-    "phase": "MVP"
+    "phase": "MVP",
+    "risk": "insan"
    }
   ]
  }

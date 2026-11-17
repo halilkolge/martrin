@@ -97,3 +97,24 @@ Her PR için, issue'daki DoD maddelerine ek olarak şunlar geçerlidir:
 - Görev şablonu: [docs/agent-task-template.md](docs/agent-task-template.md)
 - Backlog verisi: [docs/backlog.json](docs/backlog.json)
 - İlk plan notları: [docs/ilk-plan.md](docs/ilk-plan.md)
+
+## 10. Risk seviyeleri: hangi iş ajana gider
+
+Her PBI issue'sunda bir risk etiketi vardır. **Çalışmaya başlamadan önce etikete bak.**
+
+| Etiket | Ne demek | Ajan ne yapar |
+|---|---|---|
+| `risk: yeşil` | İskelet, arayüz bileşenleri, statik sayfalar, CI, testler, dokümantasyon | Görevi uygular, PR açar |
+| `risk: sarı` | Veritabanı şeması, sorgular, API uç noktaları, form işleme, kişisel veri maskeleme | Görevi uygular, PR açar. PR satır satır incelenir. Her EVAL koordinatör tarafından yeniden çalıştırılır |
+| `risk: kırmızı` | Giriş, şifre, oturum, yetkilendirme, ödeme, emanet, komisyon hesabı, IBAN/TCKN gibi kişisel veri, gizli anahtarlar, güvenlik testi | **Çalışmaz.** Issue'ya yorum yazmadan dur. Bu işler ajana verilmez |
+| `insan işi` | Karar, sözleşme, hesap açma, avukat/müşavir işi | **Çalışmaz** |
+
+Sarı ya da yeşil bir işte kırmızı kapsamda koda dokunman gerekirse dur. PR'ı Draft aç ve "Engeller" bölümüne yaz.
+
+## 11. İnceleme ve red kuralı
+
+- Koordinatör, PR'daki her EVAL'i kendi ortamında yeniden çalıştırır.
+- PR'da "geçti" diye işaretlenen tek bir madde gerçekte geçmiyorsa PR'ın tamamı reddedilir.
+- Kapsam dışı değişiklik varsa PR reddedilir.
+- Geçmeyen bir maddeyi dürüstçe "geçmedi" diye yazmak red sebebi değildir. Bu durumda düzeltme istenir.
+- Her inceleme `docs/ajan-incelemeleri.md` dosyasına kaydedilir: PR, model, karar ve neden.

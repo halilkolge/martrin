@@ -11,6 +11,12 @@ Bir issue'yu kodlama ajanına vermeden önce issue gövdesine aşağıdaki böl�
 ### Bağlam
 <2–5 cümle: bu iş neden var, hangi ekran ya da akışın parçası, prototipte nerede görülür>
 
+### Kesin yasaklar (bu işe özel)
+1. <ör. `src/db/**` dışında dosya değiştirme>
+2. <ör. yeni paket ekleme; yalnızca şu paketler serbest: …>
+3. <ajanın bu işte yapmaya en meyilli olduğu hata>
+(AGENTS.md bölüm 3'teki genel yasaklar her zaman geçerlidir.)
+
 ### Kapsam
 Yapılacak:
 - <somut çıktı 1>
@@ -32,10 +38,12 @@ Yapılmayacak:
 <tipler, uç nokta imzası, örnek istek/yanıt, doğrulama kuralları, hata kodları; arayüz işiyse metinler ve durumlar (boş, yükleniyor, hata)>
 
 ### EVAL
-| # | Kontrol | Nasıl doğrulanır | Beklenen |
-|---|---|---|---|
-| EVAL-1 | <ne> | `<komut>` ya da `<test dosyası>` | <tam beklenen sonuç> |
-| EVAL-2 | ... | ... | ... |
+| # | Kontrol | Nasıl doğrulanır | Beklenen | Sayılır / sayılmaz |
+|---|---|---|---|---|
+| EVAL-1 | <ne> | `<komut>` ya da `<test dosyası>` | <tam beklenen sonuç> | <ör. "testin kendisi geçer" SAYILIR; "test atlandı ama diğerleri geçti" SAYILMAZ> |
+| EVAL-2 | ... | ... | ... | ... |
+
+> **Ajana not:** Koordinatör her EVAL'i kendi ortamında yeniden çalıştırır. PR'da "geçti" yazan tek bir madde gerçekte geçmezse PR'ın tamamı reddedilir. Geçmeyen maddeyi olduğu gibi yazmak her zaman kabul edilir.
 
 ### DoD (bu işe özel)
 - [ ] <madde>
@@ -46,6 +54,14 @@ Yapılmayacak:
 - PR başlığı: `[<kod>] <başlık>`
 - PR açıklamasında `Closes #<no>` ve her EVAL'in sonucu
 ```
+
+## Risk seviyesi
+
+Her issue'ya ajan görevi eklenmeden önce risk seviyesi belirlenir (AGENTS.md bölüm 10):
+
+- **Yeşil:** Ajana gider.
+- **Sarı:** Ajana gider, satır satır insan/Claude incelemesi zorunludur.
+- **Kırmızı:** Ajana gitmez, "Ajan görevi" bölümü eklenmez.
 
 ## İyi bir EVAL maddesi
 
