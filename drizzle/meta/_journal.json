@@ -15,6 +15,13 @@
       "when": 1794890442009,
       "tag": "0001_nosy_leech",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794891382854,
+      "tag": "0002_quick_silver_centurion",
+      "breakpoints": true
     }
   ]
 }

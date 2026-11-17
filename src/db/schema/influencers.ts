@@ -1,6 +1,7 @@
 import {
   boolean,
   check,
+  index,
   integer,
   pgEnum,
   pgTable,
@@ -38,6 +39,14 @@ export const influencerPlatforms = pgTable(
       table.profileId,
       table.platform,
     ),
+    index("influencer_platforms_platform_profile_idx").on(
+      table.platform,
+      table.profileId,
+    ),
+    index("influencer_platforms_profile_followers_idx").on(
+      table.profileId,
+      table.followers,
+    ),
     check(
       "influencer_platforms_followers_nonnegative_check",
       sql`${table.followers} >= 0`,
@@ -60,6 +69,11 @@ export const packages = pgTable(
   },
   (table) => [
     unique("packages_profile_title_unique").on(table.profileId, table.title),
+    index("packages_active_price_profile_idx").on(
+      table.active,
+      table.priceKurus,
+      table.profileId,
+    ),
     check("packages_price_nonnegative_check", sql`${table.priceKurus} >= 0`),
     check(
       "packages_delivery_days_check",

@@ -1,6 +1,7 @@
 import {
   boolean,
   check,
+  index,
   pgEnum,
   pgTable,
   text,
@@ -44,19 +45,29 @@ export const users = pgTable(
   ],
 );
 
-export const influencerProfiles = pgTable("influencer_profiles", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  userId: uuid("user_id")
-    .notNull()
-    .unique()
-    .references(() => users.id, { onDelete: "cascade" }),
-  handle: text("handle").notNull().unique(),
-  city: text("city").notNull(),
-  niche: text("niche").notNull(),
-  gender: gender("gender").notNull(),
-  bio: text("bio").notNull(),
-  verified: boolean("verified").notNull().default(false),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-});
+export const influencerProfiles = pgTable(
+  "influencer_profiles",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .unique()
+      .references(() => users.id, { onDelete: "cascade" }),
+    handle: text("handle").notNull().unique(),
+    city: text("city").notNull(),
+    niche: text("niche").notNull(),
+    gender: gender("gender").notNull(),
+    bio: text("bio").notNull(),
+    avatarUrl: text("avatar_url"),
+    skills: text("skills").array().notNull().default([]),
+    verified: boolean("verified").notNull().default(false),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("influencer_profiles_gender_city_idx").on(table.gender, table.city),
+    index("influencer_profiles_niche_idx").on(table.niche),
+    index("influencer_profiles_skills_gin_idx").using("gin", table.skills),
+  ],
+);

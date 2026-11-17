@@ -1,8 +1,9 @@
 import "dotenv/config";
 
 import { sql } from "./client";
+import { SEED_COUNTS } from "./seed-data";
 
-const expected = { users: 9, spaces: 6, packages: 8 };
+const expected = SEED_COUNTS;
 
 try {
   const [actual] = await sql<
@@ -34,7 +35,10 @@ try {
     }
     process.exitCode = 1;
   } else {
-    console.log("Satır sayıları doğru: users=9, spaces=6, packages=8.");
+    const summary = Object.entries(expected)
+      .map(([table, count]) => `${table}=${count}`)
+      .join(", ");
+    console.log(`Satır sayıları doğru: ${summary}.`);
   }
 } finally {
   await sql.end();
