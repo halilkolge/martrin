@@ -1,0 +1,262 @@
+export const userRows = [
+  ["admin@martrin.example", "admin", "Demo Yönetici"],
+  ["yore@martrin.example", "advertiser", "Yöre Kahve Evleri"],
+  ["atlas@martrin.example", "advertiser", "Atlas Elektronik"],
+  ["bogazici@martrin.example", "space_owner", "Boğaziçi Açık Hava Medya"],
+  ["kentpark@martrin.example", "space_owner", "Kentpark AVM"],
+  ["elif@martrin.example", "influencer", "Elif Karaca"],
+  ["deniz@martrin.example", "influencer", "Deniz Aksoy"],
+  ["mert@martrin.example", "influencer", "Mert Yalçın"],
+  ["selin@martrin.example", "influencer", "Selin Doğan"],
+  ["kaan@martrin.example", "influencer", "Kaan Erdem"],
+  ["burak@martrin.example", "influencer", "Burak Şen"],
+  ["zeynep@martrin.example", "influencer", "Zeynep Arslan"],
+  ["ece@martrin.example", "influencer", "Ece Tunç"],
+] as const;
+
+export const profiles = [
+  [
+    "elifmutfakta",
+    "İstanbul",
+    "Yemek & Tarif",
+    "female",
+    "Yerel üreticiler ve mutfak ürünleri.",
+    "/images/v2/p6.jpg",
+    ["Reels", "Tarif videosu", "YouTube entegrasyon", "Ürün yerleşimi"],
+    true,
+  ],
+  [
+    "denizsokakta",
+    "İzmir",
+    "Moda & Stil",
+    "female",
+    "Yerli tasarımcılar ve sürdürülebilir stil.",
+    "/images/v2/p1.jpg",
+    ["Reels", "Mağaza ziyareti", "Kombin önerisi"],
+    true,
+  ],
+  [
+    "mertteknoloji",
+    "Ankara",
+    "Teknoloji",
+    "male",
+    "Telefon ve akıllı ev ürün incelemeleri.",
+    "/images/v2/p2.jpg",
+    ["Ürün incelemesi", "Kutu açılışı", "YouTube entegrasyon"],
+    true,
+  ],
+  [
+    "selinfit",
+    "Antalya",
+    "Spor & Sağlık",
+    "female",
+    "Antrenman ve beslenme önerileri.",
+    "/images/v2/p8.jpg",
+    ["Reels", "İndirim kodu", "Uzun dönem iş birliği"],
+    false,
+  ],
+  [
+    "kaanyolda",
+    "Nevşehir",
+    "Seyahat",
+    "male",
+    "Anadolu rotaları, butik oteller, yerel lezzetler.",
+    "/images/v2/p5.jpg",
+    ["Mekân tanıtımı", "Vlog", "YouTube entegrasyon"],
+    true,
+  ],
+  [
+    "buraklive",
+    "İstanbul",
+    "Oyun & Canlı Yayın",
+    "male",
+    "Rekabetçi oyunlar ve topluluk etkinlikleri.",
+    "/images/v2/p7.jpg",
+    ["Canlı yayın", "Çekiliş"],
+    false,
+  ],
+  [
+    "zeynepgunluk",
+    "Bursa",
+    "Lifestyle",
+    "female",
+    "Şehir hayatı, ev dekorasyonu ve yerel mekânlar.",
+    "/images/v2/p3.jpg",
+    ["Reels", "Mekân tanıtımı", "Vlog"],
+    true,
+  ],
+  [
+    "ecekomedi",
+    "Eskişehir",
+    "Komedi",
+    "female",
+    "Günlük hayattan komik anlar ve karakterler.",
+    "/images/v2/p4.jpg",
+    ["Skeç", "Seri içerik", "Reels"],
+    true,
+  ],
+] as const;
+export const profilePackages: Record<
+  string,
+  readonly (readonly [string, string, number, number])[]
+> = {
+  elifmutfakta: [
+    ["1 Reels", "60 sn tarif videosu, ürün yerleşimi", 3_800_000, 7],
+    ["Reels + 3 Story", "Link'li story serisi ile", 5_200_000, 7],
+    ["YouTube entegrasyon", "Bölüm içi 90 sn tanıtım", 6_400_000, 14],
+  ],
+  denizsokakta: [
+    ["Kombin Reels", "Ürünle 3 kombin önerisi", 2_200_000, 5],
+    ["Mağaza ziyareti", "Mağazada çekim + story", 3_000_000, 10],
+  ],
+  mertteknoloji: [
+    ["İnceleme videosu", "8–12 dk detaylı inceleme", 8_500_000, 21],
+    ["Kutu açılışı Shorts", "60 sn dikey video", 2_400_000, 7],
+  ],
+  selinfit: [
+    ["Antrenman Reels", "Ürünlü antrenman videosu", 1_250_000, 5],
+    ["30 gün iş birliği", "4 Reels + 8 Story + indirim kodu", 4_200_000, 30],
+  ],
+  kaanyolda: [
+    [
+      "Otel/Destinasyon tanıtımı",
+      "2 gün konaklama, Reels + Story",
+      4_600_000,
+      14,
+    ],
+    ["Vlog bölümü", "YouTube vlog içinde tanıtım", 5_800_000, 21],
+  ],
+  buraklive: [
+    ["Yayın sponsorluğu", "3 saatlik yayında logo + söz", 1_800_000, 3],
+    ["Haftalık seri", "4 yayın + çekiliş", 5_600_000, 30],
+  ],
+  zeynepgunluk: [
+    ["Günlük vlog Reels", "Gün içinde doğal ürün kullanımı", 1_600_000, 7],
+    ["Mekân tanıtımı", "Kafe/mağaza ziyareti + 4 story", 2_100_000, 10],
+  ],
+  ecekomedi: [
+    ["Skeç video", "Ürünü konu alan 45 sn skeç", 4_800_000, 7],
+    ["Seri (3 video)", "Haftalık 3 skeç + yorum etkileşimi", 12_000_000, 21],
+  ],
+};
+export const profilePlatforms: Record<
+  string,
+  readonly (readonly [
+    "instagram" | "tiktok" | "youtube" | "x" | "linkedin" | "twitch" | "kick",
+    number,
+  ])[]
+> = {
+  elifmutfakta: [
+    ["instagram", 412_000],
+    ["tiktok", 268_000],
+    ["youtube", 96_000],
+  ],
+  denizsokakta: [
+    ["instagram", 186_000],
+    ["tiktok", 342_000],
+  ],
+  mertteknoloji: [
+    ["youtube", 524_000],
+    ["x", 132_000],
+    ["instagram", 88_000],
+  ],
+  selinfit: [
+    ["instagram", 74_000],
+    ["tiktok", 121_000],
+  ],
+  kaanyolda: [
+    ["instagram", 236_000],
+    ["youtube", 158_000],
+  ],
+  buraklive: [
+    ["twitch", 98_000],
+    ["kick", 64_000],
+    ["youtube", 77_000],
+  ],
+  zeynepgunluk: [
+    ["instagram", 154_000],
+    ["tiktok", 61_000],
+  ],
+  ecekomedi: [
+    ["tiktok", 688_000],
+    ["instagram", 241_000],
+    ["youtube", 52_000],
+  ],
+};
+export const spaceRows = [
+  [
+    "Taksim Işıklı Billboard",
+    "billboard",
+    "İstanbul",
+    "Beyoğlu",
+    28.985,
+    41.0369,
+    1200,
+    400,
+    "extra",
+  ],
+  [
+    "Kadıköy Sahil Billboard",
+    "billboard",
+    "İstanbul",
+    "Kadıköy",
+    29.027,
+    40.991,
+    1200,
+    400,
+    "extra",
+  ],
+  [
+    "Kentpark Dev LED",
+    "avm_led",
+    "İstanbul",
+    "Ataşehir",
+    29.12,
+    40.99,
+    800,
+    450,
+    "advertiser",
+  ],
+  [
+    "Kordon Megalight",
+    "megalight",
+    "İzmir",
+    "Konak",
+    27.14,
+    38.43,
+    320,
+    240,
+    "included",
+  ],
+  [
+    "Alsancak Dijital Ekran",
+    "dooh",
+    "İzmir",
+    "Konak",
+    27.15,
+    38.44,
+    500,
+    300,
+    "advertiser",
+  ],
+  [
+    "Kızılay CLP",
+    "clp",
+    "Ankara",
+    "Çankaya",
+    32.86,
+    39.92,
+    118,
+    175,
+    "included",
+  ],
+] as const;
+
+export const SEED_COUNTS = {
+  users: userRows.length,
+  spaces: spaceRows.length,
+  packages: Object.values(profilePackages).reduce(
+    (count, rows) => count + rows.length,
+    0,
+  ),
+} as const;

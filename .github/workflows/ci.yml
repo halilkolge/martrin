@@ -51,6 +51,22 @@ jobs:
     needs: checks
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        options: >-
+          --health-cmd "pg_isready -U martrin -d martrin"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        env:
+          POSTGRES_USER: martrin
+          POSTGRES_PASSWORD: martrin
+          POSTGRES_DB: martrin
+        ports:
+          - 5432:5432
+    env:
+      DATABASE_URL: postgres://martrin:martrin@localhost:5432/martrin
     steps:
       - name: Depoyu çek
         uses: actions/checkout@v7
@@ -69,6 +85,12 @@ jobs:
 
       - name: Playwright Chromium kur
         run: pnpm exec playwright install --with-deps chromium
+
+      - name: Göçleri uygula
+        run: pnpm db:migrate
+
+      - name: Örnek veriyi ekle
+        run: pnpm db:seed
 
       - name: Uçtan uca testler
         run: pnpm e2e
