@@ -1,8 +1,10 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 import { Icon } from "@/components/icons";
+import { Select } from "@/components/ui/select";
 import { type InfluencerSearchParams } from "@/lib/search-params";
 
 export function InfluencerSearchControls({
@@ -14,16 +16,64 @@ export function InfluencerSearchControls({
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const queryString = searchParams.toString();
+  const currentSearchParams = useRef(searchParams);
+  const pendingOwnQueries = useRef(new Set<string>());
+  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [query, setQuery] = useState(params.q ?? "");
+
+  useEffect(() => {
+    currentSearchParams.current = searchParams;
+    const urlQuery = new URLSearchParams(queryString).get("q") ?? "";
+    if (pendingOwnQueries.current.has(urlQuery)) {
+      pendingOwnQueries.current.delete(urlQuery);
+      return;
+    }
+
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+      debounceTimer.current = null;
+    }
+    setQuery(urlQuery);
+  }, [queryString, searchParams]);
+
+  useEffect(
+    () => () => {
+      if (debounceTimer.current) clearTimeout(debounceTimer.current);
+    },
+    [],
+  );
 
   function update(key: string, value: string) {
-    const next = new URLSearchParams(searchParams.toString());
+    const currentQuery = currentSearchParams.current.toString();
+    const next = new URLSearchParams(currentQuery);
     if (value) next.set(key, value);
     else next.delete(key);
     next.delete("page");
     const query = next.toString();
+    if (key === "q" && query !== currentQuery) {
+      pendingOwnQueries.current.add(value);
+    }
     router.replace(query ? `/influencerlar?${query}` : "/influencerlar", {
       scroll: false,
     });
+  }
+
+  function onQueryChange(value: string) {
+    setQuery(value);
+    if (debounceTimer.current) clearTimeout(debounceTimer.current);
+    debounceTimer.current = setTimeout(() => {
+      debounceTimer.current = null;
+      update("q", value);
+    }, 300);
+  }
+
+  function submitQuery() {
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+      debounceTimer.current = null;
+    }
+    update("q", query);
   }
 
   return (
@@ -39,7 +89,10 @@ export function InfluencerSearchControls({
             </div>
             <form
               role="search"
-              onSubmit={(event) => event.preventDefault()}
+              onSubmit={(event) => {
+                event.preventDefault();
+                submitQuery();
+              }}
               className="flex w-full items-center gap-2 md:w-[460px]"
             >
               <label className="flex h-[52px] min-w-0 flex-1 items-center gap-3 rounded-2xl bg-white px-4">
@@ -49,8 +102,8 @@ export function InfluencerSearchControls({
                 </span>
                 <input
                   aria-label="İsim, kullanıcı adı ya da kategori ara"
-                  value={params.q ?? ""}
-                  onChange={(event) => update("q", event.target.value)}
+                  value={query}
+                  onChange={(event) => onQueryChange(event.target.value)}
                   placeholder="İsim, kullanıcı adı ya da kategori ara"
                   className="min-w-0 flex-1 bg-transparent text-ink outline-none placeholder:text-ink/40"
                 />
@@ -67,19 +120,19 @@ export function InfluencerSearchControls({
         </section>
       ) : null}
       {variant === "sort" ? (
-        <label className="flex items-center gap-2 text-[15px]">
-          Sırala:
-          <select
-            aria-label="Sırala"
-            value={params.sort ?? "popular"}
-            onChange={(event) => update("sort", event.target.value)}
-            className="rounded-xl bg-white px-3 py-2 font-display outline-none focus-visible:ring-2 focus-visible:ring-violet"
-          >
-            <option value="popular">Popüler</option>
-            <option value="followers">Takipçi (çoktan aza)</option>
-            <option value="price">Fiyat (artan)</option>
-          </select>
-        </label>
+        <Select
+          label="Sırala:"
+          aria-label="Sırala"
+          value={params.sort ?? "popular"}
+          onChange={(event) => update("sort", event.target.value)}
+          containerClassName="!flex !items-center !gap-2"
+          labelClassName="!text-[15px] !font-normal"
+          className="!h-auto !w-auto !rounded-xl !border-0 !bg-white px-3 py-2 font-display outline-none focus-visible:ring-2 focus-visible:ring-violet"
+        >
+          <option value="popular">Popüler</option>
+          <option value="followers">Takipçi (çoktan aza)</option>
+          <option value="price">Fiyat (artan)</option>
+        </Select>
       ) : null}
     </>
   );

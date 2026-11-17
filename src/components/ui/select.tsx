@@ -18,6 +18,7 @@ export type SelectProps = Omit<
   hint?: string;
   className?: string;
   containerClassName?: string;
+  labelClassName?: string;
 };
 
 /** Etiketi ve hata bağlantıları hazır açılır seçim alanı. */
@@ -28,6 +29,7 @@ export function Select({
   hint,
   className,
   containerClassName,
+  labelClassName,
   children,
   ...selectProps
 }: SelectProps) {
@@ -41,7 +43,10 @@ export function Select({
     <div className={cn("grid gap-1.5", containerClassName)}>
       <label
         htmlFor={fieldId}
-        className="font-display text-sm font-medium text-ink"
+        className={cn(
+          "font-display text-sm font-medium text-ink",
+          labelClassName,
+        )}
       >
         {label}
       </label>

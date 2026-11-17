@@ -2,6 +2,21 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 test.describe("influencer arama", () => {
+  test("yazarken arama metni kaybolmaz ve URL güncellenir", async ({
+    page,
+  }) => {
+    await page.goto("/influencerlar");
+
+    const search = page.getByRole("textbox", {
+      name: "İsim, kullanıcı adı ya da kategori ara",
+    });
+    await search.pressSequentially("istanbul", { delay: 20 });
+
+    await expect(search).toHaveValue("istanbul");
+    await expect(page).toHaveURL(/(?:\?|&)q=istanbul(?:&|$)/);
+    await expect(page.locator("article")).toHaveCount(2);
+  });
+
   test("kadın filtresi URL ve yenileme sonrasında korunur", async ({
     page,
   }) => {

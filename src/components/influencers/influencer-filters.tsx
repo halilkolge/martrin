@@ -3,6 +3,8 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
+import { Chip } from "@/components/ui/chip";
+import { Select } from "@/components/ui/select";
 import { type InfluencerSearchParams } from "@/lib/search-params";
 
 const CITIES = [
@@ -90,15 +92,16 @@ function ChipGroup({
       <legend className="text-[12.5px] text-muted font-display">{label}</legend>
       <div className="flex flex-wrap gap-1.5">
         {options.map(([optionValue, optionLabel]) => (
-          <button
+          <Chip
             key={optionValue}
-            type="button"
-            aria-pressed={value === optionValue}
-            onClick={() => onChange(optionValue)}
-            className={`rounded-full px-3 py-1.5 text-[13.5px] font-display transition focus-visible:ring-2 focus-visible:ring-violet ${value === optionValue ? "bg-ink text-white" : "bg-paper hover:bg-line"}`}
+            pressed={value === optionValue}
+            onPressedChange={(pressed) => {
+              if (pressed) onChange(optionValue);
+            }}
+            className={`!h-auto !min-h-0 !border-0 !px-3 !py-1.5 !text-[13.5px] focus-visible:ring-2 focus-visible:ring-violet ${value === optionValue ? "!bg-ink !text-white" : "!bg-paper !text-ink hover:!bg-line"}`}
           >
             {optionLabel}
-          </button>
+          </Chip>
         ))}
       </div>
     </fieldset>
@@ -174,54 +177,51 @@ export function InfluencerFilters({
           ]}
           onChange={(value) => update("gender", value)}
         />
-        <label className="grid gap-2 border-t border-line pt-4 text-[12.5px] text-muted font-display">
-          Şehir
-          <select
-            aria-label="Şehir"
-            value={params.city ?? ""}
-            onChange={(event) => update("city", event.target.value)}
-            className="h-11 w-full rounded-xl bg-paper px-3.5 text-[14.5px] text-ink focus-visible:ring-2 focus-visible:ring-violet"
-          >
-            <option value="">Tüm Türkiye</option>
-            {CITIES.map((city) => (
-              <option key={city} value={city}>
-                {city}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="grid gap-2 border-t border-line pt-4 text-[12.5px] text-muted font-display">
-          Kategori
-          <select
-            aria-label="Kategori"
-            value={params.niche ?? ""}
-            onChange={(event) => update("niche", event.target.value)}
-            className="h-11 w-full rounded-xl bg-paper px-3.5 text-[14.5px] text-ink focus-visible:ring-2 focus-visible:ring-violet"
-          >
-            <option value="">Tüm kategoriler</option>
-            {NICHES.map((niche) => (
-              <option key={niche} value={niche}>
-                {niche}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="grid gap-2 border-t border-line pt-4 text-[12.5px] text-muted font-display">
-          İçerik türü
-          <select
-            aria-label="İçerik türü"
-            value={params.skill ?? ""}
-            onChange={(event) => update("skill", event.target.value)}
-            className="h-11 w-full rounded-xl bg-paper px-3.5 text-[14.5px] text-ink focus-visible:ring-2 focus-visible:ring-violet"
-          >
-            <option value="">Tüm içerik türleri</option>
-            {SKILLS.map((skill) => (
-              <option key={skill} value={skill}>
-                {skill}
-              </option>
-            ))}
-          </select>
-        </label>
+        <Select
+          label="Şehir"
+          labelClassName="!text-[12.5px] !font-normal !text-muted"
+          containerClassName="grid gap-2 border-t border-line pt-4"
+          value={params.city ?? ""}
+          onChange={(event) => update("city", event.target.value)}
+          className="!h-11 !rounded-xl !border-0 !bg-paper !px-3.5 !text-[14.5px] !text-ink focus-visible:ring-2 focus-visible:ring-violet"
+        >
+          <option value="">Tüm Türkiye</option>
+          {CITIES.map((city) => (
+            <option key={city} value={city}>
+              {city}
+            </option>
+          ))}
+        </Select>
+        <Select
+          label="Kategori"
+          labelClassName="!text-[12.5px] !font-normal !text-muted"
+          containerClassName="grid gap-2 border-t border-line pt-4"
+          value={params.niche ?? ""}
+          onChange={(event) => update("niche", event.target.value)}
+          className="!h-11 !rounded-xl !border-0 !bg-paper !px-3.5 !text-[14.5px] !text-ink focus-visible:ring-2 focus-visible:ring-violet"
+        >
+          <option value="">Tüm kategoriler</option>
+          {NICHES.map((niche) => (
+            <option key={niche} value={niche}>
+              {niche}
+            </option>
+          ))}
+        </Select>
+        <Select
+          label="İçerik türü"
+          labelClassName="!text-[12.5px] !font-normal !text-muted"
+          containerClassName="grid gap-2 border-t border-line pt-4"
+          value={params.skill ?? ""}
+          onChange={(event) => update("skill", event.target.value)}
+          className="!h-11 !rounded-xl !border-0 !bg-paper !px-3.5 !text-[14.5px] !text-ink focus-visible:ring-2 focus-visible:ring-violet"
+        >
+          <option value="">Tüm içerik türleri</option>
+          {SKILLS.map((skill) => (
+            <option key={skill} value={skill}>
+              {skill}
+            </option>
+          ))}
+        </Select>
         <ChipGroup
           label="Platform"
           value={params.platform ?? ""}
