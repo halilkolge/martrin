@@ -53,3 +53,91 @@ test.describe("ana sayfa mobil görünüm", () => {
     expect(scrollWidth).toBeLessThanOrEqual(360);
   });
 });
+
+test.describe("bilgi sayfaları", () => {
+  test("ücretlerde yıllık Pro fiyatını ve faturalamayı gösterir", async ({
+    page,
+  }) => {
+    await page.goto("/ucretler");
+    await page.getByRole("button", { name: /Yıllık/ }).click();
+    const proPlan = page
+      .getByRole("article")
+      .filter({ has: page.getByRole("heading", { name: "Pro", exact: true }) });
+    await expect(proPlan).toContainText("₺1.241,67 / ay");
+    await expect(
+      proPlan.getByText("Yıllık ₺14.900 olarak faturalanır", { exact: true }),
+    ).toBeVisible();
+  });
+  test("iletişim formu hataları gösterir ve takip numarası üretir", async ({
+    page,
+  }) => {
+    await page.goto("/iletisim");
+    await page.getByRole("button", { name: "Mesaj gönder" }).click();
+    await expect(page.locator("form").getByRole("alert")).toHaveCount(4);
+    const invalidFields = [
+      ["Ad soyad", "Ad soyad en az 2 karakter olmalı."],
+      ["E-posta", "Geçerli bir e-posta adresi yaz (ornek@alan.com)."],
+      ["Mesaj", "Mesaj en az 10 karakter olmalı."],
+      [/Aydınlatma metnini/, "Devam etmek için aydınlatma metnini onayla."],
+    ] as const;
+    for (const [label, errorMessage] of invalidFields) {
+      const field = page.getByLabel(label);
+      await expect(field).toHaveAttribute("aria-invalid", "true");
+      await expect(field).toHaveAccessibleDescription(errorMessage);
+    }
+    await page.getByLabel("Ad soyad").fill("Elif Aydın");
+    await page.getByLabel("E-posta").fill("elif@ornek.com");
+    await page.getByLabel("Konu").fill("Basın");
+    await page.getByLabel("Mesaj").fill("Merhaba, bilgi almak istiyorum.");
+    await page.getByLabel(/Aydınlatma metnini/).check();
+    await page.getByRole("button", { name: "Mesaj gönder" }).click();
+    await expect(page.getByText(/MRT-\d{4}-\d{4}/)).toBeVisible();
+  });
+  test("footer bilgi bağlantıları ilgili sayfaları açar", async ({ page }) => {
+    for (const [label, path] of [
+      ["Ücretler ve paketler", "/ucretler"],
+      ["İletişim", "/iletisim"],
+      ["Belediyeler için", "/belediyeler"],
+      ["Emanet ödeme", "/emanet-odeme"],
+      ["Yayın kanıtı", "/yayin-kaniti"],
+    ] as const) {
+      const response = await page.request.get(path);
+      expect(response.status(), `${label} ${path}`).toBe(200);
+    }
+  });
+  for (const path of [
+    "/ucretler",
+    "/iletisim",
+    "/belediyeler",
+    "/emanet-odeme",
+    "/yayin-kaniti",
+  ]) {
+    test(`${path} ciddi erişilebilirlik ihlali içermez`, async ({ page }) => {
+      await page.goto(path);
+      const results = await new AxeBuilder({ page }).analyze();
+      expect(
+        results.violations.filter(
+          (item) => item.impact === "serious" || item.impact === "critical",
+        ),
+      ).toEqual([]);
+    });
+  }
+});
+
+test.describe("bilgi sayfaları mobil taşma", () => {
+  test.use({ viewport: { width: 360, height: 800 } });
+  for (const path of [
+    "/ucretler",
+    "/iletisim",
+    "/belediyeler",
+    "/emanet-odeme",
+    "/yayin-kaniti",
+  ]) {
+    test(`${path} 360px genişliğe sığar`, async ({ page }) => {
+      await page.goto(path);
+      expect(
+        await page.evaluate(() => document.documentElement.scrollWidth),
+      ).toBeLessThanOrEqual(360);
+    });
+  }
+});
