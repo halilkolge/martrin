@@ -6,13 +6,33 @@ test.describe("alan arama", () => {
     page,
   }) => {
     await page.goto("/alanlar");
-    await page.getByRole("checkbox", { name: "AVM LED", exact: true }).check();
+    const avmLed = page.getByRole("checkbox", {
+      name: "AVM LED",
+      exact: true,
+    });
+    await avmLed.check();
 
     await expect(page).toHaveURL(/(?:\?|&)type=avm_led(?:&|$)/);
+    await expect(avmLed).toBeChecked();
     await expect(page.locator("[data-space-id]")).toHaveCount(1);
     await expect(page.locator("[data-space-id]")).toContainText(
       "Kentpark Dev LED",
     );
+  });
+
+  test("AVM LED klavye seçimi odağı korur", async ({ page }) => {
+    await page.goto("/alanlar");
+    const avmLed = page.getByRole("checkbox", {
+      name: "AVM LED",
+      exact: true,
+    });
+    await avmLed.focus();
+    await avmLed.press("Space");
+
+    await expect(page).toHaveURL(/(?:\?|&)type=avm_led(?:&|$)/);
+    expect(
+      await avmLed.evaluate((node) => document.activeElement === node),
+    ).toBe(true);
   });
 
   test("harita aktif alan pinlerini ve OSM atfını gösterir", async ({

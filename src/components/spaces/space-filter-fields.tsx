@@ -1,5 +1,7 @@
 "use client";
 
+import { startTransition, useState } from "react";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select } from "@/components/ui/select";
 import { formatTRY } from "@/lib/format-try";
@@ -28,6 +30,22 @@ export function SpaceFilterFields({
   onNavigate: (params: SpaceSearchParams) => void;
   onPriceChange: (value: number) => void;
 }) {
+  const paramsKey = `${params.types?.join(",") ?? ""}:${params.digital ?? false}`;
+  const [selection, setSelection] = useState({
+    key: paramsKey,
+    types: params.types ?? [],
+    digital: params.digital ?? false,
+  });
+  if (selection.key !== paramsKey) {
+    setSelection({
+      key: paramsKey,
+      types: params.types ?? [],
+      digital: params.digital ?? false,
+    });
+  }
+  const selectedTypes = selection.types;
+  const digital = selection.digital;
+
   return (
     <>
       <Select
@@ -55,21 +73,25 @@ export function SpaceFilterFields({
         <div className="grid gap-3">
           {(Object.entries(TYPE_LABELS) as [SpaceType, string][]).map(
             ([type, label]) => {
-              const selected = params.types?.includes(type) ?? false;
+              const selected = selectedTypes.includes(type);
               return (
                 <Checkbox
                   key={type}
                   label={label}
                   checked={selected}
-                  onChange={() =>
-                    onNavigate({
-                      ...params,
-                      types: selected
-                        ? (params.types ?? []).filter((item) => item !== type)
-                        : [...(params.types ?? []), type],
-                      page: undefined,
-                    })
-                  }
+                  onChange={(event) => {
+                    const nextTypes = event.target.checked
+                      ? [...selectedTypes, type]
+                      : selectedTypes.filter((item) => item !== type);
+                    setSelection({ ...selection, types: nextTypes });
+                    startTransition(() =>
+                      onNavigate({
+                        ...params,
+                        types: nextTypes,
+                        page: undefined,
+                      }),
+                    );
+                  }}
                 />
               );
             },
@@ -102,14 +124,18 @@ export function SpaceFilterFields({
         <legend className="font-display text-[12.5px] text-muted">Ekran</legend>
         <Checkbox
           label="Sadece dijital ekranlar"
-          checked={params.digital ?? false}
-          onChange={(event) =>
-            onNavigate({
-              ...params,
-              digital: event.target.checked || undefined,
-              page: undefined,
-            })
-          }
+          checked={digital}
+          onChange={(event) => {
+            const nextDigital = event.target.checked;
+            setSelection({ ...selection, digital: nextDigital });
+            startTransition(() =>
+              onNavigate({
+                ...params,
+                digital: nextDigital || undefined,
+                page: undefined,
+              }),
+            );
+          }}
         />
       </fieldset>
       <div className="grid gap-1 border-t border-line pt-4">
