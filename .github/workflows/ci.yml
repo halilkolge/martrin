@@ -79,3 +79,41 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
+
+  db:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        options: >-
+          --health-cmd "pg_isready -U martrin -d martrin"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        env:
+          POSTGRES_USER: martrin
+          POSTGRES_PASSWORD: martrin
+          POSTGRES_DB: martrin
+        ports:
+          - 5432:5432
+    env:
+      DATABASE_URL: postgres://martrin:martrin@localhost:5432/martrin
+    steps:
+      - name: Depoyu çek
+        uses: actions/checkout@v7
+      - name: pnpm kur
+        uses: pnpm/action-setup@v6
+      - name: Node.js kur
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - name: Bağımlılıkları kur
+        run: pnpm install --frozen-lockfile
+      - name: Göçleri uygula
+        run: pnpm db:migrate
+      - name: Örnek veriyi ekle
+        run: pnpm db:seed
+      - name: Veritabanı testleri
+        run: pnpm test:db

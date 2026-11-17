@@ -276,6 +276,16 @@ pnpm dev
 
 Uygulama http://localhost:3000 adresinde açılır.
 
+Yerel PostgreSQL + PostGIS veritabanını başlatıp ilk şemayı ve örnek verileri yükleyin:
+
+```bash
+pnpm db:up && pnpm db:migrate && pnpm db:seed
+```
+
+`DATABASE_URL` varsayılanı `.env.example` dosyasında bulunur. Veritabanı entegrasyon testleri `pnpm test:db` ile ayrıca çalıştırılır.
+
+Makinende 5432'yi başka bir PostgreSQL kullanıyorsa DB_PORT=55432 yap. DATABASE_URL içindeki portu da 55432 olarak güncelle.
+
 AGENTS.md bölüm 6'daki standart komutlar:
 
 ```bash
