@@ -1,0 +1,38 @@
+export type LogoMarkProps = {
+  /** Pano gövdesinin rengi. */
+  body?: string;
+  /** Ekran yüzeyinin rengi. */
+  screen?: string;
+  /** Ekran üzerindeki canlı noktanın rengi. */
+  dot?: string;
+  className?: string;
+  /**
+   * Verilirse SVG erişilebilir ad kazanır (`role="img"`).
+   * Verilmezse dekoratif kabul edilip `aria-hidden` olur.
+   */
+  title?: string;
+};
+
+/** Martrin "Pano-m" işareti; prototipteki SVG'nin aynısı. */
+export function LogoMark({
+  body = "#151515",
+  screen = "#D6F45B",
+  dot = "#FF5A1F",
+  className = "size-10",
+  title,
+}: LogoMarkProps) {
+  const accessibility = title
+    ? { role: "img" as const, "aria-label": title }
+    : { "aria-hidden": true as const };
+
+  return (
+    <svg viewBox="0 0 120 120" className={className} {...accessibility}>
+      <path
+        d="M14 48a34 34 0 0 1 34-34h24a34 34 0 0 1 34 34v56a4 4 0 0 1-4 4H88a4 4 0 0 1-4-4V74H71v30a4 4 0 0 1-4 4H53a4 4 0 0 1-4-4V74H36v30a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4z"
+        fill={body}
+      />
+      <rect x="26" y="27" width="68" height="34" rx="12" fill={screen} />
+      <circle cx="82" cy="38" r="5" fill={dot} />
+    </svg>
+  );
+}

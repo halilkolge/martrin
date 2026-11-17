@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Martrin">
+  <path d="M14 48a34 34 0 0 1 34-34h24a34 34 0 0 1 34 34v56a4 4 0 0 1-4 4H88a4 4 0 0 1-4-4V74H71v30a4 4 0 0 1-4 4H53a4 4 0 0 1-4-4V74H36v30a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4z" fill="#151515"/>
+  <rect x="26" y="27" width="68" height="34" rx="12" fill="#D6F45B"/>
+  <circle cx="82" cy="38" r="5" fill="#FF5A1F"/>
+</svg>
