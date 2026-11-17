@@ -6,6 +6,8 @@ import Link from "next/link";
 import type { SpaceSearchParams } from "@/lib/search-params";
 import type { SpaceCard as SpaceCardData } from "@/server/spaces/search";
 
+import { Card } from "@/components/ui/card";
+
 import { SpaceCard } from "./space-card";
 import { SpaceFilters } from "./space-filters";
 import { SpaceMapLoader } from "./space-map-loader";
@@ -78,7 +80,11 @@ export function SpaceExplorer({
             ))}
           </div>
         ) : (
-          <div className="grid justify-items-center gap-4 rounded-card bg-white p-10 text-center">
+          <Card
+            tone="white"
+            className="grid justify-items-center gap-4 text-center"
+            style={{ padding: "2.5rem" }}
+          >
             <b className="font-display text-[20px]">
               Bu filtrelere uyan sonuç yok. Şehri &quot;Tüm Türkiye&quot; yap ya
               da filtreleri sıfırla.
@@ -89,7 +95,7 @@ export function SpaceExplorer({
             >
               Filtreleri sıfırla
             </Link>
-          </div>
+          </Card>
         )}
         {view === "list" && total > 20 ? (
           <SpacePagination

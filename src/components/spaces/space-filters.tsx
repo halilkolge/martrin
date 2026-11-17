@@ -8,6 +8,8 @@ import {
   type SpaceSearchParams,
 } from "@/lib/search-params";
 
+import { Card } from "@/components/ui/card";
+
 import { SpaceFilterFields } from "./space-filter-fields";
 
 const MAX_PRICE = 50_000_000;
@@ -69,9 +71,11 @@ export function SpaceFilters({ params }: { params: SpaceSearchParams }) {
         <span>Filtreler{activeCount > 0 ? ` (${activeCount})` : ""}</span>
         <span aria-hidden="true">{mobileOpen ? "⌃" : "⌄"}</span>
       </button>
-      <div
+      <Card
         id="space-filter-panel"
-        className={`${mobileOpen ? "grid" : "hidden"} content-start gap-4 rounded-card bg-white p-5 lg:grid`}
+        tone="white"
+        className={`${mobileOpen ? "grid" : "hidden"} content-start gap-4 lg:grid`}
+        style={{ padding: "1.25rem" }}
       >
         <div className="flex items-center justify-between">
           <b className="flex items-center gap-2 font-display text-[18px] font-semibold">
@@ -99,7 +103,7 @@ export function SpaceFilters({ params }: { params: SpaceSearchParams }) {
             setDraftPrice({ query: queryString, value })
           }
         />
-      </div>
+      </Card>
     </aside>
   );
 }
