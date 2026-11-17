@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 import { Chip } from "@/components/ui/chip";
+import { Card } from "@/components/ui/card";
 import { Select } from "@/components/ui/select";
 import { type InfluencerSearchParams } from "@/lib/search-params";
 
@@ -145,9 +146,10 @@ export function InfluencerFilters({
         <span>Filtreler{activeCount > 0 ? ` (${activeCount})` : ""}</span>
         <span aria-hidden="true">{mobileOpen ? "⌃" : "⌄"}</span>
       </button>
-      <div
+      <Card
         id="influencer-filter-panel"
-        className={`${mobileOpen ? "grid" : "hidden"} gap-4 rounded-card bg-white p-5 lg:grid`}
+        className={`${mobileOpen ? "grid" : "hidden"} gap-4 lg:grid`}
+        style={{ padding: "1.25rem" }}
       >
         <div className="flex items-center justify-between">
           <b className="flex items-center gap-2 font-display text-[18px] font-semibold">
@@ -238,7 +240,7 @@ export function InfluencerFilters({
           options={FOLLOWERS}
           onChange={(value) => update("min", value)}
         />
-      </div>
+      </Card>
     </aside>
   );
 }

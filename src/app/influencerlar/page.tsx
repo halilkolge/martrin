@@ -4,6 +4,7 @@ import { InfluencerCard } from "@/components/influencers/influencer-card";
 import { InfluencerFilters } from "@/components/influencers/influencer-filters";
 import { InfluencerPagination } from "@/components/influencers/influencer-pagination";
 import { InfluencerSearchControls } from "@/components/influencers/influencer-search-controls";
+import { Card } from "@/components/ui/card";
 import { parseInfluencerSearchParams } from "@/lib/search-params";
 import { searchInfluencers } from "@/server/influencers/search";
 
@@ -40,7 +41,10 @@ export default async function InfluencersPage({ searchParams }: PageProps) {
               ))}
             </div>
           ) : (
-            <div className="grid justify-items-center gap-4 rounded-card bg-white p-10 text-center">
+            <Card
+              className="grid justify-items-center gap-4 text-center"
+              style={{ padding: "2.5rem" }}
+            >
               <b className="font-display text-[20px]">
                 Bu filtrelere uyan içerik üreticisi yok
               </b>
@@ -53,7 +57,7 @@ export default async function InfluencersPage({ searchParams }: PageProps) {
               >
                 Filtreleri sıfırla
               </Link>
-            </div>
+            </Card>
           )}
           <InfluencerPagination
             params={params}
