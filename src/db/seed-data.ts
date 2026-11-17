@@ -194,6 +194,9 @@ export const spaceRows = [
     1200,
     400,
     "extra",
+    "/images/v2/hero.jpg",
+    7_800_000,
+    "week",
   ],
   [
     "Kadıköy Sahil Billboard",
@@ -205,6 +208,9 @@ export const spaceRows = [
     1200,
     400,
     "extra",
+    "/images/v2/c1.jpg",
+    2_100_000,
+    "two_weeks",
   ],
   [
     "Kentpark Dev LED",
@@ -216,6 +222,9 @@ export const spaceRows = [
     800,
     450,
     "advertiser",
+    "/images/v2/c2.jpg",
+    45_000,
+    "spot",
   ],
   [
     "Kordon Megalight",
@@ -227,6 +236,9 @@ export const spaceRows = [
     320,
     240,
     "included",
+    "/images/v2/c3.jpg",
+    2_600_000,
+    "week",
   ],
   [
     "Alsancak Dijital Ekran",
@@ -238,6 +250,9 @@ export const spaceRows = [
     500,
     300,
     "advertiser",
+    "/images/v2/c4.jpg",
+    12_000,
+    "spot",
   ],
   [
     "Kızılay CLP",
@@ -249,6 +264,9 @@ export const spaceRows = [
     118,
     175,
     "included",
+    "/images/v2/c5.jpg",
+    3_200_000,
+    "week",
   ],
 ] as const;
 
