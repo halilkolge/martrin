@@ -1,6 +1,10 @@
 import type { ErrorEvent } from "@sentry/nextjs";
 
-import { maskPII } from "./mask-pii";
+import { maskPII, maskPIIValue } from "./mask-pii";
+
+function maskStructuredValue<T>(value: T): T {
+  return maskPIIValue(value) as T;
+}
 
 function maskEventTexts(event: ErrorEvent): void {
   if (event.message) {
@@ -21,6 +25,34 @@ function maskEventTexts(event: ErrorEvent): void {
     if (breadcrumb.message) {
       breadcrumb.message = maskPII(breadcrumb.message);
     }
+
+    if (breadcrumb.data !== undefined) {
+      breadcrumb.data = maskStructuredValue(breadcrumb.data);
+    }
+  }
+
+  if (event.request) {
+    if (event.request.url) {
+      event.request.url = maskPII(event.request.url);
+    }
+
+    if (event.request.query_string !== undefined) {
+      event.request.query_string = maskStructuredValue(
+        event.request.query_string,
+      );
+    }
+
+    if (event.request.data !== undefined) {
+      event.request.data = maskStructuredValue(event.request.data);
+    }
+  }
+
+  if (event.extra !== undefined) {
+    event.extra = maskStructuredValue(event.extra);
+  }
+
+  if (event.contexts !== undefined) {
+    event.contexts = maskStructuredValue(event.contexts);
   }
 }
 

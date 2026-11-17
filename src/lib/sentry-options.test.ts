@@ -40,6 +40,87 @@ describe("maskSentryEvent", () => {
       message: "Sunucu hatası",
     });
   });
+
+  it("request.url içindeki kişisel veriyi maskeler", () => {
+    const event: ErrorEvent = {
+      type: undefined,
+      request: { url: "https://martrin.com/ara?email=ali@ornek.com" },
+    };
+
+    const masked = maskSentryEvent(event);
+
+    expect(masked.request?.url).toBe("https://martrin.com/ara?email=[email]");
+    expect(masked.request?.url).not.toContain("ali@ornek.com");
+  });
+
+  it("request.query_string içindeki kişisel veriyi maskeler", () => {
+    const event: ErrorEvent = {
+      type: undefined,
+      request: { query_string: "email=ali@ornek.com&telefon=05321234567" },
+    };
+
+    const masked = maskSentryEvent(event);
+
+    expect(masked.request?.query_string).toBe(
+      "email=[email]&telefon=[telefon]",
+    );
+    expect(masked.request?.query_string).not.toContain("ali@ornek.com");
+  });
+
+  it("request.data içindeki kişisel veriyi maskeler", () => {
+    const event: ErrorEvent = {
+      type: undefined,
+      request: { data: { email: "ali@ornek.com", siparisNo: 1234 } },
+    };
+
+    const masked = maskSentryEvent(event);
+
+    expect(masked.request?.data).toEqual({ email: "[email]", siparisNo: 1234 });
+  });
+
+  it("breadcrumb data içindeki kişisel veriyi maskeler", () => {
+    const event: ErrorEvent = {
+      type: undefined,
+      breadcrumbs: [
+        { message: "İstek", data: { email: "ali@ornek.com", tutar: 1490 } },
+      ],
+    };
+
+    const masked = maskSentryEvent(event);
+
+    expect(masked.breadcrumbs?.[0]?.data).toEqual({
+      email: "[email]",
+      tutar: 1490,
+    });
+    expect(masked.breadcrumbs?.[0]?.message).toBe("İstek");
+  });
+
+  it("extra içindeki kişisel veriyi maskeler", () => {
+    const event: ErrorEvent = {
+      type: undefined,
+      extra: { email: "ali@ornek.com", telefon: "0532 123 45 67" },
+    };
+
+    const masked = maskSentryEvent(event);
+
+    expect(masked.extra).toEqual({
+      email: "[email]",
+      telefon: "[telefon]",
+    });
+  });
+
+  it("contexts içindeki kişisel veriyi maskeler", () => {
+    const event: ErrorEvent = {
+      type: undefined,
+      contexts: { payment: { email: "ali@ornek.com", deneme: 3 } },
+    };
+
+    const masked = maskSentryEvent(event);
+
+    expect(masked.contexts).toEqual({
+      payment: { email: "[email]", deneme: 3 },
+    });
+  });
 });
 
 describe("createSentryOptions", () => {
