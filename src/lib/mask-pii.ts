@@ -1,4 +1,4 @@
-const EMAIL_PATTERN = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+const EMAIL_PATTERN = /[A-Z0-9._%+-]+(?:@|%40)[A-Z0-9.-]+\.[A-Z]{2,}/gi;
 
 // Türkiye IBAN'ı: TR + 24 rakam. Rakamlar gruplar hâlinde boşluklu yazılabilir.
 const IBAN_PATTERN = /\bTR\d{2}(?:\s*\d{4}){5}\s*\d{2}\b/gi;

@@ -9,6 +9,12 @@ describe("maskPII", () => {
     );
   });
 
+  it("adres çubuğunda kodlanmış e-postayı [email] olarak maskeler", () => {
+    expect(maskPII("https://martrin.com/ara?email=ali%40ornek.com&x=1")).toBe(
+      "https://martrin.com/ara?email=[email]&x=1",
+    );
+  });
+
   it("boşluklu 0'lı telefonu [telefon] olarak maskeler", () => {
     expect(maskPII("Tel: 0532 123 45 67")).toBe("Tel: [telefon]");
   });
