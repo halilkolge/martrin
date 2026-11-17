@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { LogoMark } from "@/components/brand/logo-mark";
 
 import { Badge } from "./badge";
-import { Card } from "./card";
+import { Card, type CardTone } from "./card";
 import { Checkbox } from "./checkbox";
 import { Select } from "./select";
 import { Table } from "./table";
@@ -19,6 +19,37 @@ describe("Card", () => {
     const card = screen.getByText("Kampanya özeti");
 
     expect(card).toHaveClass("rounded-card", "bg-white", "test-kart");
+  });
+
+  it("her tona doğru arka plan sınıfını verir", () => {
+    const tones: Array<[CardTone, string]> = [
+      ["white", "bg-white"],
+      ["ink", "bg-ink"],
+      ["violet", "bg-violet"],
+      ["lime", "bg-lime"],
+      ["paper", "bg-paper"],
+    ];
+
+    render(
+      <>
+        {tones.map(([tone]) => (
+          <Card key={tone} tone={tone}>
+            {tone}
+          </Card>
+        ))}
+      </>,
+    );
+
+    for (const [tone, background] of tones) {
+      expect(screen.getByText(tone)).toHaveClass(background);
+    }
+    expect(screen.getAllByText(/^(white|ink|violet|lime|paper)$/)).toHaveLength(
+      5,
+    );
+    expect(screen.getByText("white")).toHaveClass("bg-white");
+    for (const tone of ["ink", "violet", "lime", "paper"] as const) {
+      expect(screen.getByText(tone)).not.toHaveClass("bg-white");
+    }
   });
 });
 

@@ -60,7 +60,7 @@ export function Select({
         {children}
       </select>
       {error ? (
-        <p id={errorId} className="text-sm text-bad">
+        <p id={errorId} role="alert" className="text-sm text-bad">
           {error}
         </p>
       ) : hint ? (

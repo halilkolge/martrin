@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, type ComponentPropsWithoutRef } from "react";
+import { useId, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
 import { cn, fieldClasses } from "./utils";
 
@@ -9,7 +9,7 @@ export type InputProps = Omit<
   "id" | "className"
 > & {
   /** Görünür alan etiketi. Zorunludur. */
-  label: string;
+  label: ReactNode;
   /** Alan kimliği. Verilmezse `useId` ile üretilir. */
   id?: string;
   /** Hata metni. Verilirse alan `aria-invalid` olur ve hata açıklamasına bağlanır. */
@@ -52,7 +52,7 @@ export function Input({
         className={cn(fieldClasses(Boolean(error)), "h-11", className)}
       />
       {error ? (
-        <p id={errorId} className="text-sm text-bad">
+        <p id={errorId} role="alert" className="text-sm text-bad">
           {error}
         </p>
       ) : hint ? (
