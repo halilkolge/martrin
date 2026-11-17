@@ -3,6 +3,8 @@
 
 Closes #
 
+**Yazan ajan ve model:** <!-- ör. opencode / deepseek-v4.1-flash-free -->
+
 ## Plan
 <!-- Uygulamadan önce yazdığın maddeler. -->
 1.

@@ -1,5 +1,7 @@
 # Martrin
 
+[![CI](https://github.com/halilkolge/martrin/actions/workflows/ci.yml/badge.svg)](https://github.com/halilkolge/martrin/actions/workflows/ci.yml)
+
 > **Göz neredeyse, markan orada.**  
 > Influencer'dan billboarda, 81 ilde tek sepet.
 
@@ -98,7 +100,7 @@ Görsel yön: koyu zemin (#151515), lime (#D6F45B) ve mor (#A77BFF) vurgular, Po
 
 İşler GitHub issue'ları olarak takip edilir: **12 epic, 60 PBI**, toplam **309 puan** (MVP: 52 PBI, 248 puan). Her PBI'da kullanıcı hikâyesi, kabul kriterleri ve işaretlenebilir adımlar var. PBI'lar epic'lerine alt görev olarak bağlı.
 
-Etiketler: `epic`, `pbi`, `E0`–`E11` (epic kodu), `sp-1`…`sp-13` (puan). Kilometre taşları: `MVP`, `Faz 2`.
+Etiketler: `epic`, `pbi`, `E0`–`E11` (epic kodu), `sp-1`…`sp-13` (puan), risk seviyesi (`risk: yeşil` 8, `risk: sarı` 29, `risk: kırmızı` 19, `insan işi` 4). Kilometre taşları: `MVP`, `Faz 2`.
 
 ### E0 · Temel ve altyapı ([#2](https://github.com/halilkolge/martrin/issues/2))
 
@@ -246,7 +248,7 @@ Pilotla canlıya güvenle çıkmak. Toplam 13 puan.
 
 ## Çalışma şekli
 
-- Kodlama görevlerini opencode ajanları yapar. Kurallar [AGENTS.md](AGENTS.md)'de. Her issue'ya ajan almadan önce "Ajan görevi" bölümü (kapsam, adımlar, EVAL, DoD) eklenir ve PR'lar bu maddelere göre incelenir.
+- Kodlama görevlerini opencode ajanları yapar. Kurallar [AGENTS.md](AGENTS.md)'de. Her issue'ya ajan almadan önce "Ajan görevi" bölümü (kapsam, adımlar, EVAL, DoD) eklenir ve PR'lar bu maddelere göre incelenir. Giriş, ödeme ve kişisel veri kodu (`risk: kırmızı`) ajana verilmez, Claude yazar. Veritabanı ve API kodu (`risk: sarı`) ajana gider ama satır satır incelenir. Ayrıntı: AGENTS.md bölüm 10–11.
 
 - `main` dalı korunur, doğrudan commit atılmaz. Geliştirme `prototip` ya da iş başına açılan dallarda yapılır ve PR ile birleştirilir.
 - PR açıklamasına `Closes #<issue>` yazılınca ilgili iş birleşmeyle kapanır.
@@ -293,3 +295,9 @@ pnpm format:check
 ```
 
 Uçtan uca testler ilk çalıştırmada Chromium tarayıcısını ister: `pnpm exec playwright install chromium`.
+
+### Hata izleme
+
+Hata izleme Sentry ile yapılır. `SENTRY_DSN` sunucu ve edge tarafında, `NEXT_PUBLIC_SENTRY_DSN` tarayıcı tarafında kullanılır. İkisi de boşsa Sentry devre dışı kalır ve uygulama normal çalışır. DSN değerlerini `.env.local` dosyanıza ya da barındırma ortamının ortam değişkenlerine girin; gerçek DSN'i repoya commit etmeyin.
+
+`src/lib/mask-pii.ts` e-posta, telefon, TCKN ve IBAN'ı maskeler. Sentry olayları gönderilmeden önce aynı maskeleme `beforeSend` ile uygulanır, `sendDefaultPii: false` ayarlıdır. Sentry yapılandırması `src/instrumentation-client.ts`, `src/instrumentation.ts`, `src/sentry.server.config.ts` ve `src/sentry.edge.config.ts` dosyalarındadır. `src/lib/logger.ts` ise tek satırlık JSON log üretir ve mesajlardaki kişisel verileri maskeler.
