@@ -295,3 +295,9 @@ pnpm format:check
 ```
 
 Uçtan uca testler ilk çalıştırmada Chromium tarayıcısını ister: `pnpm exec playwright install chromium`.
+
+### Hata izleme
+
+Hata izleme Sentry ile yapılır. `SENTRY_DSN` sunucu ve edge tarafında, `NEXT_PUBLIC_SENTRY_DSN` tarayıcı tarafında kullanılır. İkisi de boşsa Sentry devre dışı kalır ve uygulama normal çalışır. DSN değerlerini `.env.local` dosyanıza ya da barındırma ortamının ortam değişkenlerine girin; gerçek DSN'i repoya commit etmeyin.
+
+`src/lib/mask-pii.ts` e-posta, telefon, TCKN ve IBAN'ı maskeler. Sentry olayları gönderilmeden önce aynı maskeleme `beforeSend` ile uygulanır, `sendDefaultPii: false` ayarlıdır. Sentry yapılandırması `src/instrumentation-client.ts`, `src/instrumentation.ts`, `src/sentry.server.config.ts` ve `src/sentry.edge.config.ts` dosyalarındadır. `src/lib/logger.ts` ise tek satırlık JSON log üretir ve mesajlardaki kişisel verileri maskeler.
