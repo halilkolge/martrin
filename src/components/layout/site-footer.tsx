@@ -9,7 +9,7 @@ const LINK_GROUPS = [
       { href: "#", label: "Alan bul" },
       { href: "#", label: "Influencer bul" },
       { href: "#", label: "İlan / ihale aç" },
-      { href: "#", label: "Ücretler ve paketler" },
+      { href: "/ucretler", label: "Ücretler ve paketler" },
     ],
   },
   {
@@ -17,16 +17,16 @@ const LINK_GROUPS = [
     links: [
       { href: "#", label: "Alanını listele" },
       { href: "#", label: "Influencer olarak katıl" },
-      { href: "#", label: "Belediyeler için" },
+      { href: "/belediyeler", label: "Belediyeler için" },
     ],
   },
   {
     title: "Güven",
     links: [
-      { href: "#", label: "Emanet ödeme" },
-      { href: "#", label: "Yayın kanıtı" },
+      { href: "/emanet-odeme", label: "Emanet ödeme" },
+      { href: "/yayin-kaniti", label: "Yayın kanıtı" },
       { href: "#", label: "KVKK · Reklam kılavuzu" },
-      { href: "#", label: "İletişim" },
+      { href: "/iletisim", label: "İletişim" },
     ],
   },
 ] as const;
